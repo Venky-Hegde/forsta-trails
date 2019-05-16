@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../static/css/forsta.css">
+<script src="../../../static/js/login.js"></script>
+<script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+<link rel="icon" href="../static/css/icon5.png" type="image/gif" sizes="16x16">
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+<body id="login-body">
+
+<div class="container" style="width:76%">
+    <div class="row " style="margin-top:18%">
+        <div class="col-sm-6 col-xs-12 col-md-6 col-lg-6">
+            <p class="font_80 font_QuicksandMeduim ">
+                forsta <font size="5" color="lightgray">a digital assistant for recruitment</font>
+            </p>
+            <br>
+            <p class="font_QuicksandMeduim"><font size="4" color="#93c0e8">Helps staffing agencies become more efficient in catering to multiple customers
+                and their staffing requirements</font></p>
+            <br><br>
+            <p class="font_QuicksandMeduim"><font size="4" color="#93c0e8">New to forsta ? Send a note to : </font><font size="4" color="lightgray">forstaadmin@aqua-cap.com</font></p>
+        </div>
+        <div class="col-sm-2 col-md-2" style="border-left:1px solid orange; height:400px;left:10%" >
+
+        </div>
+        <div class="col-sm-4 col-xs-12 col-md-4">
+<div id=" ">
+    <header class="login_header h2"><font size="5" color="lightgray">Login</font><br> <span><font size="2"
+                                                                                                  color="lightgray">sign into forsta, a digital assitant for staffing</font></span>
+    </header>
+    <font id="invalid_email" class="hide" font size="2" color="red"> Invalid Username or Password</font>
+   <form id="form_login">
+
+       <input type="email" class="login_input c1" placeholder="Email" name="username" value="" id="usr"
+               autocomplete="off" required ><br><br>
+        <div id="password_show">
+            <input type="password" class="login_input c1" placeholder="Password" name="password" id="myinput"
+                   autocomplete="off" required>
+            <span class="fa fa-fw fa-eye field-icon toggle-password" id="eye"></span>
+        </div>
+        <br>
+        <a id="rese" data-toggle="modal" data-target="#resetModal" class=" l2" href="#">Forgot Password?</a>
+
+        <button type="submit" class="login_btn">Login</button>
+
+   </form>
+
+
+</div>
+</div>
+    </div>
+</div>
+
+
+
+<div class="modal " id="resetModal" role="dialog">-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-lightgray" style="padding:20px">Reset password
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="card1">
+
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label class="lab2 l2">
+                                    <Large>Email*</Large>
+                                </label>
+                                <input type="text" class="c1" name="email" id="c_name">
+                            </div>
+                        </div>
+                        <p class="c2 disclaimer">*indicates a required field</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn_cancel" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn_save" onclick="reset()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<p id="p1"></p>
+<div class="modal fade in" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Invalid Username or Password</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+<!--$( document ).ready(function() {-->
+<!--{%if success == "False" %}-->
+   <!--$('#myModal').modal('show')-->
+<!--{% endif%}-->
+<!--});-->
+
+
+$(".login_btn").click(function () {
+
+
+    $("#form_login").validate({
+        rules: {
+
+            "email": {
+                required:  true,
+            },
+
+
+            "password": {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            "email": {
+                required: "Please enter a valid email address."
+            }
+        },
+
+        submitHandler: function(form) { // for demo
+            login_validation()
+        }
+
+
+    });
+
+
+
+
+
+
+});
+
+
+function login_validation(){
+email = document.getElementById("usr").value;
+password = document.getElementById("myinput").value;
+
+data = { "username" : email , "password" : password }
+
+$.ajax({
+
+
+                datatype: 'JSON',
+                data : data,
+                url: "/login/",
+                method: "post",
+
+                success: function(data) {
+                if(data.msg == "operator"){
+        window.location.href="/operatorpage/"
+                }
+                else if (data.msg == "admin"){
+                        window.location.href="/operatorlist/"
+
+                }
+                else if (data.msg == "customer"){
+                        window.location.href="/customerpage/"
+
+                }
+
+
+
+                toastr.success(data.error)
+
+ }
+ });
+
+}
+
+</script>
+
+<script>
+
+
+function reset(){
+
+var email=document.getElementById("c_name").value;
+data={"email" : email }
+ $.ajax({
+         data   : data,
+         url: '/resetpassword/',
+         method:"post",
+         datatype: 'json',
+
+                          success: function(data) {
+                         console.log(data.msg)
+                            toastr.success(data.msg)
+                          }
+                          });
+                          }
+
+
+
+</script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+   <head>
+      <title>Operators details page</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="../static/css/smartrec.css">
+      <script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+   </head>
+   <script>
+      // show data table
+   </script>
+   <body id="main">
+      <nav class="navbar header-top  navbar-expand-lg  navbar-dark bg-dark">
+         <span class="navbar-toggler-icon leftmenutrigger"></span>
+         <a class="navbar-brand" href="#">forsta</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+            aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <span class="color_white margin_alt active" data-toggle="tab" id="customer_tab" href="#customer">CUSTOMER MANAGEMENT</span>
+         <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ml-md-auto d-md-flex">
+               <li class="nav-item">
+                  <span class="nav-link" href="#" data-toggle="dropdown">Welcome {{ request.user.first_name }}</span>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
+                     <li class="font_size_16" role="presentation"><a role="menuitem" tabindex="-1" href="/operatorpage/">Home</a></li>
+                     <li role="presentation" class="divider"></li>
+
+                     <li class="font_size_16" role="presentation "><a role="menuitem" tabindex="-1" href="/logout/">Logout</a></li>
+                  </ul>
+               </li>
+               <!--<a class="nav-link" href=/logout/>Logout</a>-->
+            </ul>
+         </div>
+      </nav>
+      <div class="grid-container card">
+         <div class="card-body">
+            <div  class="row">
+               <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+                  <span><div class="col-sm-10 p-0 title_header"style="padding:20px font-size:16px">Customer Management</div>
+                      <button class="btn btn-primary " data-toggle="modal"   title="Add Operator"   data-target="#myModal">Add User</button>
+
+                  </span></div>
+               <div class="table-responsive">
+                  <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 " id="content">
+                     <div class="col-sm-2 p-0 btn_allign">
+                        <!--<button type="button" class="btn btn-primary" id="export">Export-->
+                        <!--<span class="glyphicon glyphicon-upload"></span>-->
+                        <!--</button>-->
+                     </div>
+                     <table class="table table-hover"  id="mydata">
+                        <thead>
+                           <tr>
+                              <th>COMPANY NAME</th>
+                              <th>CUSTOMER / OPERATOR NAME</th>
+                              <th>EMAIL ID </th>
+                              <th>CONTACT NUMBER</th>
+                              <th>NO OF CLIENTS</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for User in details %}
+                           <tr>
+                              <td> {{User.company.company_name}} </td>
+                              <td > {{ User.first_name }}</td>
+
+                              <td title="{{ User.email}}"> {{ User.email|truncatechars:20 }} </td>
+                              <td>{{ User.phone_number }}</td>
+                              <td> {{ User.get_company_count}} </td>
+
+                           </tr>
+                           {% endfor %}
+                     </table>
+                     </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <div class="modal " id="myModal" role="dialog">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header bg-primary" style="padding:20px">Add User To Your Company
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="card1">
+                  <form   id="form" >
+                     <div class="card-body">
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>Company Name*</Large>
+                              </label>
+                              <input type="text"  name="company_name" id="c_name" value="{{request.user.company.company_name}}" readonly>
+                           </div>
+                        </div>
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>First Name*</Large>
+                              </label>
+                              <input type="text"  name="first_name" id="f_name"  >
+                           </div>
+                        </div>
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>Last Name</Large>
+                              </label>
+                              <input type="text"  name="last_name" id="l_name"  >
+                           </div>
+                        </div>
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>Email Id*</Large>
+                              </label>
+                              <input type="email"  name="email" id="e_id" title="Ex:johndoe12@gmail.com"  >
+                           </div>
+                        </div>
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>Password*</Large>
+                              </label>
+                              <input type="password"  name="password" id="myinput" ><span  class="fa fa-fw fa-eye field-icon toggle-password" id = "passwordshow"></span>
+
+                           </div>
+                        </div>
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>Telephone*</Large>
+                              </label>
+                              <input type="number"   id="operphone" placeholder="Ex:(9876543210)" name="phone_number" min="1" title="Ex: 9876543210" >
+                           </div>
+                        </div>
+                        <p id="dis">*indicates a required field</p>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                        <button type="submit" class="btn btn-primary" onclick="validate()" >ADD</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+    <script>
+
+         function validate() {
+          $("#form").validate({
+
+              rules: {
+
+                  "email": {
+                      required: true,
+                  },
+
+                   "first_name": {
+                      required: true,
+                  },
+                   "company_name": {
+                      required: true,
+                  },
+                    "password": {
+                      required: true,
+                  },
+                   "phone_number": {
+                      required: true,
+                       minlength:8,
+                      maxlength:12
+
+
+                  }
+              },
+              messages: {
+                  "name": {
+                      required: "Please, enter a name"
+                  },
+                  "email": {
+                      required: "Please, enter an email",
+                      email: "Email is invalid"
+                  }
+              },
+
+              submitHandler: function (form) { // for demo
+                  add_operator()
+              }
+
+
+              });
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+      function add_operator(){
+
+
+      var first_name=document.getElementById("f_name").value;
+      var last_name=document.getElementById("l_name").value;
+      var email=document.getElementById("e_id").value;
+      var company_name=document.getElementById("c_name").value;
+      var password=document.getElementById("myinput").value;
+      var phone_number=document.getElementById("operphone").value;
+      var data = {
+                    first_name: first_name ,
+                    last_name     :last_name,
+                    email     : email,
+                    company_name : company_name,
+                    password      : password,
+                    phone_number : phone_number,
+                        }
+
+
+               $.ajax({
+
+                      url: "/addoperator/",
+                      method : 'post',
+                      data: data,
+                      dataType: 'json',
+                      success: function (data){
+
+                              swal(data.msg);
+                          window.location.reload();
+
+                      }
+
+
+                 });
+
+      }
+
+
+
+
+
+
+    </script>
+
+
+
+   </body>
+
+</html>

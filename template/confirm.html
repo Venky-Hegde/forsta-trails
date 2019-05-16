@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../static/css/forsta.css">
+<script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+<script src="../../../static/js/confirm.js"></script>
+<link rel="icon" href="../static/css/icon5.png" type="image/gif" sizes="16x16">
+
+
+<body id="login-body">
+</div>
+<div id="login_form">
+    <header class="login_header"><font size="5" color="lightgray">Change Password</font></header>
+
+    <input type="email" class="login_input" placeholder="Email" name="username" value="{{email}}"
+           readonly="true"><br><br>
+    <div id="password_show">
+        <input type="password" class="login_input" placeholder="Password" name="new_password" id="new_password"
+               required>
+        <span class="fa fa-fw fa-eye field-icon toggle-password" id="eye"></span>
+    </div>
+    <br>
+
+    <br>
+    <div id="password_showed">
+        <input type="password" class="login_input" placeholder="Confirm Password" name="confirm_password"
+               id="confirm_password" required>
+        <span class="fa fa-fw fa-eye field-icon toggle-password" id="eyes"></span>
+    </div>
+    <br>
+
+
+    <button type="submit" class="login_btn" id="click_submit">SAVE</button>
+
+
+</div>
+
+<script>
+
+parseURLParams = (url) => {
+
+       var queryStart = url.indexOf("?") + 1,
+           queryEnd   =  url.length + 1,
+           query = url.slice(queryStart, queryEnd - 1),
+           pairs = query.replace(/\+/g, " ").split("&"),
+           parms = {}, i, n, v, nv;
+       if (query === url || query === "") return;
+       for (i = 0; i < pairs.length; i++) {
+           nv = pairs[i].split("=", 2);
+           n = decodeURIComponent(nv[0]);
+           v = decodeURIComponent(nv[1]);
+
+
+
+       }
+       return v;
+ }
+
+
+$(document).on('click', '#click_submit', function (event) {
+
+
+
+
+                       var data={"token":parseURLParams(window.location.href),"new_password" : document.getElementById("new_password").value,"confirm_password":document.getElementById("confirm_password").value }
+                      $.ajax({
+                        url: "/changepassword/",
+                        method : 'post',
+                        data:data,
+                        datatype: 'json',
+                                         success: function(data) {
+                          if(data.success==true){
+                          swal(data.msg)
+                          location.replace(window.location.origin)
+
+                          }
+                          else{
+                                         swal(data.msg)
+                                         }
+
+                                         }
+
+                                         })
+});
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+

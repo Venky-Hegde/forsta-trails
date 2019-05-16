@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load i18n staticfiles %}
+
+<html lang="en">
+<head>
+    <title>Operator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Menu CSS -->
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <!--data tables-->
+    <!--<script src="http://cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>-->
+    <!--<script src="http://cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.js"></script>-->
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+<link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css.map">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="../static/build/js/intlTelInput.js"></script>
+    <link rel="stylesheet" href="../static/css/forsta.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+    <link rel="icon" href="../static/css/icon5.png" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.percentageloader/0.1.0/jquery.percentageloader.css">
+     <link rel="stylesheet" href="../static/css/tagcomplete.css">
+    <link rel="stylesheet" href="../static/css/tagcomplete.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
+
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.percentageloader/0.1.0/jquery.percentageloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+
+                  <script src="../static/js/jquery.preloaders.js"></script>
+              <script src="../static/js/jquery.preloaders.min.js"></script>
+    <script src="../static/js/tagcomplete.js"></script>
+    <script src="../static/js/tagcomplete.min.js"></script>
+        <script src="../static/js/datetime.js"></script>
+
+    <link rel="stylesheet" href="../static/css/jquery-toast.css">
+    <script src="../static/js/jquery-toast.js"></script>
+
+    <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+
+
+    <script>
+
+        // translations for datatables
+
+        var dt_language = {
+            "emptyTable":     "{% trans "No data available in table" %}",
+            "info":           "{% trans "Showing _START_ to _END_ of _TOTAL_ entries" %}",
+            "infoEmpty":      "{% trans "Showing 0 to 0 of 0 entries" %}",
+            "infoFiltered":   "{% trans "(filtered from _MAX_ total entries)" %}",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "{% trans "Show _MENU_ entries" %}",
+            "loadingRecords": "{% trans "Loading..." %}",
+            "processing":     "{% trans "Processing..." %}",
+            "search":         "{% trans "Search:" %}",
+            "zeroRecords":    "{% trans "No matching records found" %}",
+            "paginate": {
+                "first":      "{% trans "First" %}",
+                "last":       "{% trans "Last" %}",
+                "next":       "{% trans "Next" %}",
+                "previous":   "{% trans "Previous" %}"
+            },
+            "aria": {
+                "sortAscending":  "{% trans ": activate to sort column ascending" %}",
+                "sortDescending": "{% trans ": activate to sort column descending" %}"
+            }
+        }
+
+
+
+    </script>
+
+</head>
+<body id="main">
+<nav class="navbar header-top  navbar-expand-lg  navbar-dark bg-dark" id="navbar">
+    <a class="navbar-brand" href="#">forsta</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+     <span class="color_white margin_alt   nav_font getdashboardDetails" data-toggle="tab" id="dashboard_tab"
+          href="#dashboard"> Dashboard</span>
+    <span class="color_white margin_alt   nav_font" data-toggle="tab" id="customer_tab"
+          href="#customer">Customers</span>
+    <span class=" color_white  margin_alt nav_font getallprofile" data-toggle="tab" id="profiles_tab"
+          href="#profile">Repository</span>
+    <!--<span class=" color_white  margin_alt nav_font " data-toggle="tab" id="jobs_tab" href="#jobs">Jobs</span>-->
+    <span class=" color_white  margin_alt nav_font " data-toggle="tab" id="user_tab" href="#user">My Users</span>
+        <!--<span class=" color_white  margin_alt nav_font " data-toggle="tab" id="user_tab1" href="#user">{{ request.user.company.interview_services }}</span>-->
+    {% if request.user.company.interview_services == True  %}
+    <span class=" color_white  margin_alt nav_font " data-toggle="tab" onclick="load_interview_tab()" id="interview_tab" href="#interview">Interview</span>
+    {% endif %}
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav ml-md-auto d-md-flex">
+            <li class="nav-item">
+                <span class="nav-link" href="#" data-toggle="dropdown">Welcome {{ request.user.first_name }}</span>
+                <font color="white" data-toggle="dropdown" class="company_name_header nav-link">{{ request.user.company.company_name}}</font>
+
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
+                    <li class="font_size_16" role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"
+                                                                    data-target="#operatordetailsmodel">Profile</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li class="font_size_16 logout" role="presentation "><a role="menuitem" tabindex="-1">Logout</a>
+                    </li>
+                </ul>
+            </li>
+            <!--<a class="nav-link" href=/logout/>Logout</a>-->
+        </ul>g
+    </div>
+</nav>
+<div class="grid-container card">
+    <div class="card-body" id="myTab">
+        <div class="tab-content ">
+
+
+            <div id="dashboard" class="tab-pane fade in">
+                                <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+
+                <!--<p class="oper_dashboard l1"> Dashboard </p>-->
+
+                                    <div class="float-right">
+
+                                         <i class="fa fa-envelope icon_small" title="Send Mail"
+                       data-toggle="modal" id="oper_excel" onclick="sendDashboarddata()" value="send mail"></i>
+
+                                                <i title="Download dashboard details" class="fa fa-download icon_small  dashboard_to_excel" id="import_excel_dashboard"
+                       onclick="()"></i>
+
+
+                                    </div>
+
+                <div class="row ht-60">
+
+                                                        <div class=" col-sm-1">
+                                                            <label class="title_header l1">Company :</label> </div>
+                     <div class="col-sm-3">
+                        <div class="form-group-cell" id="dash_board">
+                           <select class="dash_board_table" id="dash_board_table" name="company_dropdown" style="width :200px;">
+                                    <option selected> ............. </option>
+
+                               </select></div>
+
+                        <button id="company_dropdown" title="Create job" class="btn btn_tertiary  openmodel_addjob"  style="margin-left:15px" >+ Add Job
+                                    </button>
+                         <p class="hide" id="select_company" style="margin-left:220px;color:red;font-size:10px;">Please select company </p>
+
+                       </div>
+
+                                         <div class="clo-sm-1">
+                             <label class="title_header l1">Job Status :</label>
+
+
+                         </div>
+                                             <div class="col-sm-3">
+                             <div class="form-group-cell">
+                                 <select class="job_status" id="job_status" style="width:200px">
+
+
+                                 </select>
+
+                             </div>
+
+
+                         </div>
+
+
+
+                </div>
+                     <div class="row ht-60">
+
+                                                            <div class="col-sm-1">
+
+                                                                <label class="title_header l1">Job Title :</label> </div>
+                         <div class=" col-sm-3">
+
+                            <div class="form-group-cell" >
+                                <select class="sort_by_job" id="dash_board_job" name="job_dropdown" style="width :200px;">
+                                    <option selected> ............. </option>
+
+                               </select>
+                            </div>
+                             <button id="job_dropdown" class="btn btn_tertiary  attach_profiles " title="Attach Profiles"  style="margin-left:15px">+ Attach Profiles
+                                        </button>
+                             <p class="hide" id="select_job" style="margin-left:220px;color:red;font-size:10px;">Please select job </p>
+                         <p class="hide" id="select_company_profile" style="margin-left:220px;color:red;font-size:10px;">Please select company </p>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+                <div class="table-responsive show" id="dashboard_details">
+                                    <div class="col-sm-2 p-0 btn_allign">
+
+                                            <p class="l1"> Dashboard </p>
+
+
+
+
+                    </div>
+
+
+
+                <table class="table dashboard_layout" id="dashboard_data">
+                    <thead class="l3 " id="dashboarddata">
+                    <tr>
+                        <th >Job Details </th>
+                        <th> Job Title   </th>
+                        <th># Positions   </th>
+                        <th >Action</th>
+
+                        <th  >Candidate Details </th>
+                        <th> Candidate Email</th>
+
+                        <th >Phone Number</th>
+                        <th > Company id </th>
+                        <th  > Role</th>
+                        <th > Skills</th>
+                        <th > Current Company</th>
+                        <th > Exp</th>
+                        <th >CTC</th>
+                        <th >E-CTC</th>
+                        <th >NP(days)</th>
+                        <th >Resume</th>
+                        <th >Status</th>
+                        <th> job id </th>
+                        <th> id </th>
+                        <th>comapany_name</th>
+                        <th >Chat</th>
+
+
+
+                        <!--<th>Delete </th>-->
+
+
+                    </tr>
+                                        </thead>
+
+
+
+                    <tbody class="c2" id="dashboard_table" class="content">
+                  <tr>
+
+  </tr>
+                  </tbody>
+
+                </table>
+
+
+
+<div id="bottom_anchor"></div>
+
+
+
+
+
+
+                </div>
+
+
+
+                 <div class="table-responsive hide" id="new_profiles" style="margin-top : 15px">
+
+                                <div class="btn_allign l1">
+
+          <div class="glyphicon glyphicon-menu-left goback"></div>
+
+                                    Profile Repository
+                                    <button class="btn btn_tertiary  save_profiles_jobs " title="Attach Profiles to Job"
+                                            style="margin-left:15px">Attach
+                                    </button>
+                                </div>
+                                <input type="hidden" value="" id="attach_job_id">
+                                <input type="hidden" value="" id="attach_com_id">
+                                <table width="100%" class="table table-hover" id="unAttachedProfiles">
+                                    <thead class="l3">
+                                    <tr>
+                                        <th></th>
+                                        <th width="10%">Name</th>
+                                        <th> A </th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th> Role</th>
+                                        <th>Skills</th>
+                                        <th>Current Company</th>
+                                        <th>Exp</th>
+                                        <th>CTC</th>
+                                        <th>E-CTC</th>
+                                        <th>NP(days)</th>
+                                        <th>Last Update</th>
+                                        <th>Resume</th>
+                                    </tr>
+                                    <tbody class="c2" id="new_profile_table_row">
+                                    </tbody>
+                                </table>
+                            </div>
+
+            </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div id="customer" class="tab-pane fade in ">
+                <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+                    <i title="Download CustomerList" class="fa fa-download icon_small" id="import_excel"
+                       onclick="customert_list_to_excel()"></i>
+
+                    <!--<i class="fa fa-envelope icon_small" title="Send Mail" style="float:right;margin-right:20px;"-->
+                       <!--data-toggle="modal" id="oper_excel" onclick="modalEmail('customerlist')" value="send mail"></i>-->
+                </div>
+                <div class="modal" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-lightgray l1" style="padding:20px">Add Customer
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="add-customer">
+                                    <form action="{% url 'operatorpage' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Company Name*</font>
+                                                    </label>
+                                                    <input class="c1" type="text" name="company_name" id="com_name"
+                                                           required>
+                                                    <p id="uniqu_companyname" class="hide c2">Company name already
+                                                        exits..!</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>First Name*</font>
+                                                    </label>
+                                                    <input class="c1" type="text" name="first_name" id="f_name"
+                                                           required>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Last Name</font>
+                                                    </label>
+                                                    <input class="c1" type="text" name="last_name" id="l_name">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Email Id*</font>
+                                                    </label>
+                                                    <input class="c1" type="email" name="email" id="e_mail" required>
+                                                    <p id="unique_email" class="hide c2">Email already exits..!</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Password*</font>
+                                                    </label>
+                                                    <input class="c1" name="password" type="password" id="mypassword"
+                                                           required><span
+                                                        class="fa fa-fw fa-eye field-icon toggle-password"
+                                                        onclick="passwordshow()"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Telephone*</font>
+                                                    </label>
+                                                    <input class="c1" type="number" placeholder="Ex:(9876543210)"
+                                                           id="cust_phone" name="phone_number" pattern="[0-9]{7,10}"
+                                                           title="Ex: 9876543210" required>
+                                                </div>
+                                            </div>
+                                            <p class="c2 disclaimer">* indicates a required field</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn_cancel" data-dismiss="modal">
+                                                    CANCEL
+                                                </button>
+                                                <button type="submit" class="btn btn_save">SAVE</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <div class="col-sm-2 p-0 btn_allign">
+
+                                            <p class="l1"> Customers </p>
+
+                            <button class="btn btn_tertiary customer_button" data-toggle="modal" id="cust" title="Add Customer"
+                                data-target="#myModal">+ Add
+                        </button>
+
+
+                    </div>
+
+                    <table class="table table-hover" id="customer_data">
+                        <thead class="l3">
+                        <tr>
+                            <th>Company name</th>
+                            <th>Contact name</th>
+                            <th>Email id</th>
+                            <th>Contact number</th>
+                            <th>Total jobs</th>
+
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="c2">
+                        {% for User in customers %}
+                        <tr id="{{User.company.company_name}}">
+                            <td class="opendashboard">{{User.company.company_name}}</td>
+                            <td class="opendashboard">{{User.first_name}}</td>
+                            <td title="{{ User.email}}" class="opendashboard"> {{ User.email|truncatechars:20 }}</td>
+                            <td class="opendashboard">{{User.phone_number}}</td>
+                            <input type="hidden" value="{{User.id}}" name="id" id="u_id">
+                            <input type="hidden" value="{{User.company.id}}" name="company_id" id="c_id">
+                            <input type="hidden" value="{{User.first_name}}" name="first_name">
+                            <input type="hidden" value="{{User.last_name}}" name="last_name">
+                            <input type="hidden" value="{{User.email}}" name="email">
+                            <input type="hidden" value="{{User.company.company_name}}" name="company_name">
+                            <input type="hidden" value="{{User.phone_number}}" name="phone_number">
+                            <td class="opendashboard">{{User.get_job_count}}</td>
+                            <td>
+                                <i class="fa fa-pencil fa-2x icon_large editbtn" aria-hidden="true" id="editcustomer"
+                                   title="Edit Customer"></i>
+                                <i onclick="delete_cust({{User.id}},{{User.company.id}})" title="Delete Customer"
+                                   class="fa fa-trash-o fa-2x icon_large"></i>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="modal" id="editcustomerdata" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-lightgray l1" style="padding:20px">Update Customer
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="edit-customer">
+                                        <form action="{% url 'updatecustomer' %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="card-body">
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+                                                            <font>Company Name(Read Only)</font>
+                                                        </label>
+                                                        <input class="c1" type="text" placeholder="Company Name"
+                                                               name="company_name" id="company_name"
+                                                               value="{{this.company_name}}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+
+                                                            <font>First Name*</font>
+                                                        </label>
+                                                        <input class="c1" type="text" placeholder="First Name*"
+                                                               name="first_name" id="firstname"
+                                                               value="{{this.first_name}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+                                                            <font>Email Id*</font>
+                                                        </label>
+                                                        <input class="c1" type="hidden" placeholder="Email*"
+                                                               id="User_id" name="User_id" value="" required>
+                                                        <input class="c1" type="email" placeholder="Email Id*"
+                                                               name="email" id="email" value="{{this.email}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+                                                            <font>Telephone*</font>
+                                                        </label>
+                                                        <input class="c1" type="number" placeholder="Ex:(9876543210)" pl
+                                                               name="phone_number" id="phone_number" min="1"
+                                                               pattern="[0-9]{7,10}" title="Ex:9876543210"
+                                                               value="{{this.phone_number}}">
+                                                    </div>
+                                                </div>
+                                                <p class="c2 disclaimer">* indicates a required field</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn_cancel" data-dismiss="modal">
+                                                    CANCEL
+                                                </button>
+                                                <button type="submit" class="btn btn_save" onclick="">SAVE
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="modal " id="sendmailModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-lightgray l1" style="padding:20px">Send Message
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card1">
+                                <form id="form_validate">
+                                    <input type="hidden" id="excelSheet" value="">
+                                    <label class="lab2 l2">
+                                        <br>
+                                        <font>To*</font>
+                                    </label>
+                                    <input type="email" name="tags" placeholder="Recipients" id="Mail_ids" required>
+                                    <br>
+                                    <label class="lab2 l2">
+                                        <br><br>
+                                        <font>Subject*</font>
+                                    </label>
+                                    <input id="subjects" type="text" required>
+                                    <br><br>
+                                    <label class="lab2 l2">
+                                        <font>Details*</font>
+                                    </label>
+
+                                    <textarea id="details"></textarea>
+
+                                    <br>
+                                    <h4 id="excel_attach" style="color:blue;top:27px" class="hide"> file attached </h4>
+                                    <button class="btn btn_save" style="float:right;" onclick="validate_email()"
+                                            id="bt1" value="send">Send
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal" id="editJobModal" role="dialog">
+                <div class="modal-dialog">
+         <div class="modal-content" class="cj"  style="width:800px;padding:15px">
+            <div class="modal-header">
+                  <h5 class="modal-title" style="font-size:20px;">Edit Job</h5>
+                  <button type="button" class="close cancell"  >&times;</button>
+               </div>
+                    <div class="modal-body" id="bodyy">
+
+                     <div class="form-row">
+                        <div class="form-group col-md-8">
+                           <label class="lab2 l2">
+                              <large> Job Title</large>
+                           </label>
+                            <input type="hidden" value="" id="edit_job_id">
+                             <input type="hidden" value="" name="companyid">
+                                    <input type="hidden" value="{{c_name}}" name="companyname">
+                                    <input type="text" class="c1" placeholder="Title" name="job_title"
+                                           value="{{this.job_title}}" id="job_title" readonly>
+
+                        </div>
+                             <div class=" col-md-4">
+                            <label class="lab2 l2">
+                                <font>Job End Date</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:1995-08-9" name="job_end_date" id="date">
+                        </div>
+                     </div>
+
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large>Required Skills</large>
+                              <font size="1" color="#9da1a4">  (Enter single or multiple skills seperated by ",")</font>
+                           </label>
+                           <!--<input type="text" class="c1"  placeholder="Primary Skills" name="primaryskills" required>-->
+                            <!--<select id="selectNumber" class="chosen-select" multiple>-->
+                            <!--<option>Choose Skills</option>-->
+                              <input type="text"  placeholder="Skills" name="primary_skills" id="p_skills" required>
+
+                       </div>
+                        </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large> Job Descriptions</large>
+                              <font size="1" color="#9da1a4">(Type/Paste here*)</font>
+                           </label>
+                           <textarea   id="jobdescription" class="c1"  placeholder="Job Description"  name="jobdescription" ></textarea>
+                        </div>
+                     </div>
+
+
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Experience</large>
+                              <font size="1" color="#9da1a4">(Years)</font>
+                           </label>
+                           <input type="number" class="c1" id="exp" placeholder="2"  name="experience"min="0" max="99"  step="any" title="Two or Less Numbers Only" required >
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Number of Positions</large>
+                           </label>
+                           <input type="text"   class="c1" placeholder="10" name="positions"  pattern="[0-9]{0,3}" title="Three or Less Numbers Only" id="no_positions"  required>
+                        </div>
+                          <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Notice Period</large>
+                              <font size="1" color="#9da1a4">(days)</font>
+                           </label>
+                           <input type="text"   class="c1"  placeholder="30" name="leadtime"  pattern="[0-9]{0,2}" title="Two or Less Numbers Only" id="lead_time" required>
+                     </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Candidates needed For</large>
+                           </label>
+                           <input type="text" id="created_for"  class="c1"  placeholder="Enter Self or Other Company Name"  name="createdfor" required >
+                        </div>
+                          <div class="form-group col-md-4">
+                            <label class="lab2 l2">
+                                <font>Location</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:Bangalore" name="location" id="location" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Reference Id</large>
+                              <font size="1" color="#9da1a4"></font>
+                           </label>
+                           <input  class="c1" type="text"  id="reference_id_update" placeholder="Reference ID"  name="reference_id"  pattern="[A-Za-z0-9]{3,10}">
+                        </div>
+                     </div>
+                      <div class="form-row">
+
+                           <div class="form-group col-md-6">
+                           <label class="lab2 l2">
+                              <font size="3">Job Type  :</font>
+                           </label>
+
+                                <form name="Mainform" id="Mainform">
+                                        <input type="radio" id="full_time" name="rds" value="full_time"/>
+                                        <font size="2"> Full Time</font>
+                                        <input type="radio" id="contract" name="rds" value="contract"/>
+                                        <font size="2">Contract</font>
+                                        <input type="radio" id="contract_hire" name="rds" value="contract_hire"/>
+                                        <font size="2">C to H</font>
+                                    </form>
+                           </label>
+                           </div>
+                                        <div class="form-group col-md-6">
+
+
+                                             <label class="lab2 l2">
+                              <font size="3">Job Status  :</font>
+                           </label>
+                                <form name="JobStatus" id="JobStatus">
+                                        <input type="radio" id="active_job" name="js" value="Active"/>
+                                        <font size="2"> Active </font>
+                                        <input type="radio" id="hold_job" name="js" value="Hold" />
+                                        <font size="2"> Hold</font>
+                                        <input type="radio" id="close_job" name="js" value="Closed"/>
+                                        <font size="2">Close</font>
+                                         <input type="radio" id="cancel_job" name="js" value="Canceled"/>
+                                        <font size="2">Cancel</font>
+
+                                    </form>
+                                        </div>
+                        </div>
+
+                     <div class="form-row" style="float:right" >
+                        <button type="button" id="cancell"  class="btn btn_cancel cancell">CANCEL</button>
+                        <button type="submit" id="savee" class="btn btn_save edit_job">SAVE</button>
+                     </div>
+               </div>
+
+         </div>
+                </div>
+            </div>
+
+
+            <div id="user" class="tab-pane fade">
+                                                <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+
+                         <i title="Download UserList" class="fa fa-download icon_small"style="float:right"
+                       onclick="user_list_to_excel()"></i>
+                     <!--<i class="fa fa-envelope icon_small" style="margin-right:20px; float:right" title="Send Mail"-->
+                       <!--data-toggle="modal" onclick="modalEmail('userlist')" value="send mail"></i>-->
+                                                </div>
+                        <div class="table-responsive">
+                             <div class="col-sm-2 p-0 btn_allign">
+                                            <p class="l1"> My Users </p>
+
+                            <button class="btn btn_tertiary customer_button" data-toggle="modal" title="Add Customer"
+                                data-target="#addUser">+ Add
+                        </button>
+                            </div>
+
+                                <table class="table" id="mydata">
+                                    <thead class="l3">
+                                    <tr>
+                                        <th>Company name</th>
+                                        <th>Customer / Operator name</th>
+                                        <th>Email id</th>
+                                        <th>Contact number</th>
+                                        <th>No of clients</th>
+                                        <th>Action</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="c2">
+                                    {% for User in details %}
+                                    <tr>
+                                        <td> {{User.company.company_name}}</td>
+                                        <td> {{ User.first_name }} {% if User.is_active is False %} - Inactive {% endif %}  </td>
+                                        <td title="{{ User.email}}"> {{ User.email|truncatechars:20 }}</td>
+                                        <td>{{ User.phone_number }}</td>
+                                        <td> {{ User.get_company_count}}</td>
+                                        <td>  <i class="fa fa-pencil fa-2x icon_large edit_myuser" aria-hidden="true" data-toggle="modal" title="Edit User"
+                                data-target="#editmyuser"></i>  </td>
+                                         <input type="hidden" value="{{User.id}}" name="id">
+                            <input type="hidden" value="{{User.company.id}}" name="company_id">
+                            <input type="hidden" value="{{User.first_name}}" name="first_name">
+                            <input type="hidden" value="{{User.last_name}}" name="last_name">
+                            <input type="hidden" value="{{User.email}}" name="email">
+                            <input type="hidden" value="{{User.company.company_name}}" name="company_name">
+                            <input type="hidden" value="{{User.phone_number}}" name="phone_number">
+
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                </table>
+
+                </div>
+                <!-- Optional JavaScript -->
+                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                <div class="modal " id="addUser" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-lightgray l1" style="padding:20px">Add User To Your Company
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card1">
+                                    <form id="form">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Company Name*</font>
+                                                    </label>
+                                                    <input class="c1" type="text" name="company_name" id="c_name"
+                                                           value="{{request.user.company.company_name}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>First Name*</font>
+                                                    </label>
+                                                    <input class="c1" type="text" name="first_name" id="fi_name"
+                                                           required>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Last Name</font>
+                                                    </label>
+                                                    <input class="c1" type="text" name="last_name" id="la_name">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Email Id*</font>
+                                                    </label>
+                                                    <input class="c1" type="email" name="email" id="e_id"
+                                                           title="Ex:johndoe12@gmail.com" required>
+                                                     <p id="uni_email" class="hide c2">Email already exits..!</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Password*</font>
+                                                    </label>
+                                                    <input class="c1" type="password" name="password" id="myinput"
+                                                           required><span
+                                                        class="fa fa-fw fa-eye field-icon toggle-password"
+                                                        id="passwordshow"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label class="lab2 l2">
+                                                        <font>Telephone*</font>
+                                                    </label>
+                                                    <input class="c1" type="number" id="operphone"
+                                                           placeholder="Ex:(9876543210)" name="phone_number" min="1"
+                                                           title="Ex: 9876543210" required>
+                                                </div>
+                                            </div>
+                                            <p class="c2 disclaimer"> *indicates a required field</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn_cancel" data-dismiss="modal">CANCEL
+                                            </button>
+                                            <button type="submit" class="btn btn_save" onclick="validate()">ADD</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                                    <div class="modal" id="editmyuser" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-lightgray l1" style="padding:20px">Update User
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="edit-customer">
+
+                                            <div class="card-body">
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+                                                            <font>Company Name(Read Only)</font>
+                                                        </label>
+                                                        <input class="c1" type="text" placeholder="Company Name"
+                                                               name="company_name" id="company_name_user"
+                                                               value="{{this.company_name_user}}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+
+                                                            <font>First Name*</font>
+                                                        </label>
+                                                        <input class="c1" type="text" placeholder="First Name*"
+                                                               name="first_name" id="firstname_user"
+                                                               value="{{this.first_name}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+                                                            <font>Email Id*</font>
+                                                        </label>
+                                                        <input class="c1" type="hidden" placeholder="Email*"
+                                                               id="User_id_user" name="User_id" value="" required>
+                                                        <input class="c1" type="email" placeholder="Email Id*"
+                                                               name="email" id="email_user" value="{{this.email}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label class="lab2 l2">
+                                                            <font>Telephone*</font>
+                                                        </label>
+                                                        <input class="c1" type="number" placeholder="Ex:(9876543210)" pl
+                                                               name="phone_number" id="phone_number_user" min="1"
+                                                               pattern="[0-9]{7,10}" title="Ex:9876543210"
+                                                               value="{{this.phone_number}}">
+                                                    </div>
+                                                </div>
+
+
+
+                                <form name="user_activity" id="user_activity">
+                                   <div id="check_box">
+                                        <font size="2" > Active:</font>
+                                        <input type="checkbox" id="enabled_user" class="enabled_user"/>
+                                         </br>
+
+
+
+
+                                   </div>
+
+                                    </form>
+
+
+                           </div>
+
+                                                <p class="c2 disclaimer">* indicates a required field</p>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn_cancel" data-dismiss="modal">
+                                                    CANCEL
+                                                </button>
+                                                <button type="submit" class="btn btn_save" onclick="edit_myuser()">SAVE
+                                                </button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+</div>
+
+            <div id="interview" class="tab-pane fade">
+                                                <!--<div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">-->
+
+                         <!--<i title="Download UserList" class="fa fa-download icon_small"style="float:right"-->
+                       <!--onclick="user_list_to_excel()"></i>-->
+                     <!--&lt;!&ndash;<i class="fa fa-envelope icon_small" style="margin-right:20px; float:right" title="Send Mail"&ndash;&gt;-->
+                       <!--&lt;!&ndash;data-toggle="modal" onclick="modalEmail('userlist')" value="send mail"></i>&ndash;&gt;-->
+                                                <!--</div>-->
+                        <div class="table-responsive">
+                             <div class="col-sm-2 p-0 btn_allign">
+                                            <p class="l1"> Interviewer </p>
+
+                            <!--<button class="btn btn_tertiary customer_button" data-toggle="modal" title="Add Customer"-->
+                                <!--data-target="#addUser">+ Add-->
+                        <!--</button>-->
+                            </div>
+
+                                <table class="table" id="interview_table">
+                                    <thead class="l3">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Interviewing Skills</th>
+                                        <th>Experience</th>
+                                        <th>Resume</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="c2">
+                                    {% for profiles in data %}
+                                    <tr>
+                                        <td> {{profiles.candidate_name}}</td>
+                                        <td title="{{  profiles.candidate_email}}"> {{profiles.candidate_email|truncatechars:20 }}</td>
+                                        <td>{{ profiles.phone_number }}</td>
+                                        <td> {{ profiles.interview_skills}}</td>
+                                        <td> {{ profiles.experience}}</td>
+
+                                        <td value="{{profiles.resume_path}}"> <img  src="../static/css/document-edit-icon.png" width="22px" class="editbtn changeprofile" aria-hidden="true" id="{{profiles.resume_path}}" value="{{profiles.id}}"></i>  </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                </table>
+
+                </div>
+
+                <!---->
+                 <!--'<td value="' + str(-->
+                    <!--row.resume_path) + '"><img  src="../static/css/document-edit-icon.png" width="22px" class="editbtn changeprofile" aria-hidden="true" id="' + str(-->
+                    <!--row.resume_path) + '" value=' + str(-->
+                    <!--row.id) + ' title="View & Edit Profile"></img> <i onclick="delete_profile(' + str(-->
+                    <!--row.id) + ')" class="fa fa-trash-o fa-3x icon_large"title="Delete Profile"></i><a href="../media/'+str(row.resume_path)+'" download class="fa fa-download icon_small"title="Download Profile"></a></td>')-->
+
+
+                <!-- Optional JavaScript -->
+                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+            <div id="profile" class="tab-pane fade">
+                <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+                    <div class="col-sm-10 p-0 title_header" style="padding:20px font-size:16px"></div>
+                    <i title="Download Repository" class="fa fa-download icon_small" id="import_excel_profile"
+                       onclick="profile_list_to_excel()"></i>
+                    <!--<i class="fa fa-envelope icon_small" style="float:right;margin-right:20px;" data-toggle="modal"-->
+                       <!--title="Send Mail" onclick="modalEmail('profilelist_excel')" value="send mail"></i>-->
+                </div>
+
+                        <form id="loader_files">
+                            <input class="c1" type="file" id="fileLoader" name="docfile" title="Load File" multiple>
+                        </form>
+                        <div class="col-sm-6 p-0 btn_allign" style="margin-left:10%">
+                            <!--<font class="title_header">Advanced Search: </font> <input type="search"-->
+                            <!--id="search" placeholder="Ex: Java,Python" required>-->
+                            <!--<button type="submit"  style="margin-left:10px" onclick="search()" id="id_smart_search"><i class="fa fa-search"></i></button>-->
+                            <!--<span>  <button type="reset" class="btn btn_tertiary" onclick="getallprofiles()" >RESET</button>-->
+                            <!--</span>-->
+                        </div>
+
+
+
+                    <div class="table-responsive">
+
+                                                <div class="col-sm-2 p-0 btn_allign">
+                            <p class="l1"> Profile Repository </p>
+                            <button class="btn btn_tertiary show profile_add_button" id="add_profile" data-toggle="modal" title="Add Profile"
+                                    onclick="openfileDialog()">+ Add
+                            </button>
+                                  <!--<p> Note:(Only .pdf,.doc & .docx are allowed) </p>-->
+                        </div>
+
+
+                                <table style="width:100%" class="table datatable" id="data_table_repository">
+                                    <thead class="l3">
+                                    <th>Name</th>
+                                    <th>A</th>
+
+                                    <th >Email</th>
+                                    <th >Phone</th>
+                                    <th >Role</th>
+
+                                    <th>{% trans "Skills" %}</th>
+                                    <th >{% trans "Current Company" %}</th>
+                                    <th >{% trans "Exp" %}</th>
+                                    <th >{% trans "CTC" %}</th>
+                                    <th >{% trans "E-CTC" %}</th>
+                                    <th >{% trans "NP(days)" %}</th>
+                                    <th >{% trans "Last updated" %}</th>
+                                    <th >{% trans "Resume Details" %}</th>
+
+
+
+
+                                    </thead>
+                                    <tbody class="c2">
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+
+
+                </div>
+                <div class="card-footer bg-white"></div>
+            </div>
+            <div id="jobs" class="tab-pane fade">
+
+
+
+
+
+
+
+
+                <div class=" row">
+                    <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 ">
+
+ <i title="Download ProfilesList"  class="fa fa-download icon_small" id="import_excel_jobs" onclick="jpa_list_to_excel(job_id)"></i>
+                    <!--<i class="fa fa-envelope icon_small" style="float:right;margin-right:35px;" title="Send Mail"-->
+                       <!--data-toggle="modal" onclick="modalEmail('jpalist')" value="send mail"></i>-->
+                    </div>
+                    <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 mt-b  mb-b  ">
+                        <label class="title_header l1">Company :</label>
+                        <div class="form-group-cell">
+                            <select class="oncustomer" id="ma">
+                                <!--<option selected  id="select_company"> Select company </option>-->
+                              {% for User in customers %}
+
+                              <option value="{{User.company.id}}" title="{{User.company.company_name}}" {{forloop.first}} selected {{endfor}}>{{User.company.company_name|truncatechars:15 }}</option>
+                              {% endfor%}
+                              <option value="0" onclick="JoblistCall(0)" > All </option>
+                           </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" id="job_profile_view">
+                        <div class="col-sm-2 p-0 bl_1">
+                            <div class="col-sm-12 headers">
+                                <div class="col-sm-6 p-0 l4">Jobs</div>
+                                <div class="col-sm-6 p-0">
+                                    <!--<button title="Create job" class="btn btn_tertiary float-right " id="btn"-->
+                                            <!--onclick="Openmodel(company_id)">+ Add-->
+                                    <!--</button>-->
+                                </div>
+                            </div>
+                            <div class="" style="backgrond-color:white">
+                            </div>
+                            <div class="sidenav " id="joblist_data">
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="show" id="show_attached_profiles">
+
+                                <div class="btn_allign l1">
+                                    Attached Profiles
+                                    <button class="btn btn_tertiary  attach_profiles " title="Attach Profiles" id="btn1"
+                                            style="margin-left:15px">+ Add
+                                    </button>
+                                </div>
+                                <div class="table-responsive">
+
+                                {% block content %}
+
+                                <table style="width:100%"  class="datatable" id="data_table_server">
+                                    <thead class="l3">
+                                    <th width="15%">{% trans "Candidate Details" %}</th>
+                                    <!--<th>{% trans "Candidate email" %}</th>-->
+                                    <!--<th>{% trans "Phone Number" %}</th>-->
+
+                                    <th  width="20%">{% trans "Skills" %}</th>
+                                    <th  width="9%">{% trans "Current Company" %}</th>
+                                    <th  width="3%">{% trans "Exp" %}</th>
+                                    <th  width="8%">{% trans "Ctc" %}</th>
+                                    <th width="8%">{% trans "E-Ctc" %}</th>
+                                    <th  width="8%">{% trans "Notice Period" %}</th>
+                                    <th  width="5%">{% trans "Resume" %}</th>
+                                    <th  width="9%">{% trans "Status" %}</th>
+                                    <th width="5%">{% trans "Conversation" %}</th>
+                                    <th width="5%">{% trans "Delete" %}</th>
+
+
+                                    </thead>
+                                    <tbody class="c2">
+                                    </tbody>
+                                </table>
+                                {% endblock %}
+                                </div>
+                            </div>
+                            <!--<div class="hide" id="new_profiles">-->
+
+                                <!--<div class="btn_allign l1">-->
+                                    <!--Profile Repository-->
+                                    <!--<button class="btn btn_tertiary  save_profiles_jobs " title="Attach Profiles to Job"-->
+                                            <!--style="margin-left:15px">Attach-->
+                                    <!--</button>-->
+                                <!--</div>-->
+
+
+                                <!--<table class="table table-hover" id="unAttachedProfiles">-->
+                                    <!--<thead class="l3">-->
+                                    <!--<tr>-->
+                                        <!--<th></th>-->
+                                        <!--<th>Name</th>-->
+                                        <!--<th>Email</th>-->
+                                        <!--<th>Phone</th>-->
+                                        <!--<th>Skills</th>-->
+                                        <!--<th>Current Company</th>-->
+                                        <!--<th>Experience</th>-->
+                                        <!--<th>Ctc</th>-->
+                                        <!--<th>E-Ctc</th>-->
+                                        <!--<th>Notice Period</th>-->
+                                        <!--<th>Resume</th>-->
+                                    <!--</tr>-->
+                                    <!--<tbody class="c2" id="new_profile_table_row">-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white"></div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="editprofile" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="max-width: 95% !important;">
+        <div class="modal-content">
+            <div>
+                        <button type="button" class="close profile_cancel" style="font-size: 30px;margin-right: 12px;" >&times;</button>
+
+                <!--<p id="last_updated">  </p>-->
+      </div>
+            <div class="modal-body">
+                <div class="col-sm-4">
+
+                      <ul class="nav nav-pills ">
+                              <li class="l1 modal_tabs active"><a data-toggle="tab" href="#panel7">Profile Details</a></li>
+
+
+    <li class="l1 modal_tabs"><a data-toggle="tab" href="#panel9">Notes</a></li>
+
+                          <li class="l1 modal_tabs"><a data-toggle="tab" href="#panel8">Attach To Job </a></li>
+
+                      </ul>
+                                              <hr color="blue" style="margin:initial;">
+
+
+                    <!--<div class="row">-->
+                        <!--<div class="col-sm-12">-->
+                    <!--<p class="l1"><b> Edit Profile </b></p>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                     <div class="tab-content">
+          <!--Panel 7-->
+          <div class="tab-pane fade in  active" id="panel7" role="tabpanel">
+                    <form id="form_edit">
+                        <input type="hidden" id="pro_id" value="">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-sm-5"></div>
+                            <div class="col-sm-7"><button type="button" class="loadprevprofile"> << </button>
+
+                            <button type="button" class="btn btn_cancel profile_cancel" >CANCEL</button>
+                            <button type="submit" class="btn btn_save validate_profiles" id="validate_profiles1">SAVE</button>
+                            <button type="button" class="loadnextprofile"> >> </button>
+</div>
+
+</div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-7">
+                                    <label class="lab2 l2">
+                                        <font>Candidate Name*</font>
+
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Name*" name="candidate_name"
+                                       maxlength="75"    id="first_name" >
+                                </div>
+
+                                 <div class="form-group col-sm-5 availability" >
+                                     <font class="c1">Is Available:</font><span></span>
+                                     <input class="c1 checkbox_class" type="checkbox" style="margin-left:12px" name="availability"  id="availability" ><font size="4"></font>
+
+                        </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Email Id*</font>
+                                    </label>
+                                    <input class="c1" type="hidden" placeholder="Email*" id="profile_id"
+                                           name="profile_id" value="" required>
+                                    <input class="c1" type="email" placeholder="Email*" id="email_address"
+                                          maxlength="100"  name="candidate_email">
+
+                                </div>
+                            </div>
+                                     <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label class="lab2 l2">
+                                        <font>Telephone*</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Phone number" id="editphone"  maxlength="15"
+
+
+
+                                           name="phone_number"  >
+                                </div>
+                                         <div class="form-group col-sm-6">
+                                    <label class="lab2 l2">
+                                        <font>Alternate Number</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Phone number" id="alternate_phone_number"  min="1" title="Ex: 9876543210"  name="phone_number"   maxlength="15" >
+
+                                </div>
+
+
+                            </div>
+
+                                                        <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Current Role</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Current Role" name="current_role"
+                                           id="current_role"  maxlength="60"  >
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Skills*</font>
+                                        <font size="1" color="#9da1a4"> (Enter single or multiple skills seperated by
+                                            ",")</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Primary skills" name="primary_skills"
+                                           id="primary_skills"   maxlength="200" >
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Current Company</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Current company" name="current_company"
+                                           id="current_company"   maxlength="50">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Current Location</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Current Location" name="current_location"
+                                           id="current_location"  maxlength="50" >
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label class="lab2 l2">
+                                        <font>Currrent CTC</font>
+                                        <font size="1" color="#9da1a4">(INR)</font>
+                                    </label>
+                                    <input class="c1" type="number" placeholder="CTC" name="current_ctc" id="current_ctc" min="1" max="9999999999">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="lab2 l2">
+                                        <font>Expected CTC</font>
+                                        <font size="1" color="#9da1a4">(INR)</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Expected CTC" name="expected_ctc" min="1" max="9999999999"
+                                           id="expected_ctc">
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                                                <div class="form-group col-sm-6">
+                                    <label class="lab2 l2">
+                                        <font>Experience*</font>
+                                        <font size="1" color="#9da1a4">(Years)</font>
+                                    </label>
+                                    <input class="c1" type="number" placeholder="Total experience" name="experience" min="0" max="99"
+                                           id="experience" step="any">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+
+                                    <label class="lab2 l2">
+                                        <font>Notice Period*</font>
+                                        <font size="1" color="#9da1a4">(days)</font>
+                                    </label>
+                                    <input class="c1" type="text" placeholder="Notice Period" name="notice_period"
+                                           id="notice_period" min="0" max="99">
+                                </div>
+                            </div>
+                                <input type="hidden" id="interview_as_a_service" value="{{request.user.company.interview_services}}">
+                                {% if request.user.company.interview_services == True  %}
+
+
+                            <div class="form-row">
+                                                                 <div class="form-group col-sm-2" style="margin-top:25px">
+                                     <font class="c1">Interviewer:</font><span></span>
+                                                                 </div>
+                                <div class="form-group col-sm-2" style="margin-top:25px">
+
+                                     <input class="c1 checkbox_class" type="checkbox" style="margin-left:12px" name="availability"  id="Interviewer" ><font size="4"></font>
+
+                        </div>
+                                <div class="col-sm-8">
+                                                                        <label class="lab2 l2">
+                                        <font>Interviewer Skill</font>
+                                        <font size="1" color="#9da1a4">(days)</font>
+                                    </label>
+
+                              <input type="text" class="tags_input" style="height: 10%;" placeholder="Skills" data-value="alpha,beta" name="primaryskills" id="interview_skills">
+
+
+
+                                </div>
+
+
+
+                            </div>
+                            {% endif %}
+                            <input type="hidden" id="row_index_repository" value="" />
+                            <p class="c2 disclaimer">* indicates a required field</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="loadprevprofile"> << </button>
+
+                            <button type="button" class="btn btn_cancel profile_cancel" >CANCEL</button>
+                            <button type="submit" class="btn btn_save validate_profiles" id="validate_profiles">SAVE</button>
+                            <button type="button" class="loadnextprofile"> >> </button>
+
+                        </div>
+                    </form>
+          </div>
+
+
+                    <div class="tab-pane fade" id="panel8" role="tabpanel" style="margin-top:20px;margin-left: 18px">
+                                         <div class="row ht-40" >
+
+                                <div class="col-sm-3">
+                                                            <label class="title_header l2 ">Company :</label> </div>
+                     <div class="col-sm-9">
+                        <div class="form-group-cell">
+                           <select class="dash_board_table " id="edit_resume_company" name="company_dropdown" style="width:230px;">
+                                    <option selected> ............. </option>
+
+                               </select>
+
+                                                 <p class="hide" id="select_company_resumeview" style="margin-left:220px;color:red;font-size:10px;">Please select company </p>
+
+                        </div>
+                     </div>   </div>
+                        <br>
+
+                        <div class="row ht-40">
+
+                                <div class="col-sm-3">
+
+                                                                <label class="title_header l2">Job Title :</label> </div>
+                     <div class="col-sm-9">
+
+                            <div class="form-group-cell" >
+                                <select class="sort_by_job" id="edit_resume_job" name="job_dropdown" style="width:230px;">
+                                    <option selected> ............. </option>
+
+                               </select>
+
+                                <p class="hide" id="select_job_resumeview" style="margin-left:220px;color:red;font-size:10px;">Please select job </p>
+
+
+                            </div>
+                        </div>
+                    </div> <br>
+                                      <div class="row ">
+
+                                                            <div class="col-sm-9">
+
+                                    <button  class="btn btn_tertiary  attach_profiles_resume"  id="attach_profiles_resume" title="Attach Profiles"  style="float:right">+ Attach  </button>
+                                                            </div>
+                                      </div> </div>
+                            <div class="tab-pane fade" id="panel9" role="tabpanel">
+
+
+                                                        <div class="row">
+
+                                <div class="form-group col-sm-10">
+                                    <textarea type="text" id="resume_id_notes" style="height:250px;width:100%;margin-top:22px;margin-left: 16px;
+" id="resume_notes" name="recore_notes"></textarea> <br><br>
+                                    <button type="submit" class="btn btn_save  float-right save_notes">SAVE</button>
+
+
+                                                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                     </div>
+                </div>
+                <div class="col-sm-8">
+                    <object id="resume_pdf" data="" type="application/pdf" width="100%" height="800px">
+                        <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                    </object>
+                    <iframe id="resume_doc" src="" style="width:100%; height:800px">
+                    </iframe>
+                </div>
+                                <!--<div class="col-sm-2 ">-->
+
+                                     <!--<div class="row ">-->
+
+                                                        <!--<div class=" col-sm-12 col-md-12">-->
+                                                            <!--<label class="title_header l1">Company :</label> </div>-->
+                     <!--<div class="col-sm-12 col-md-12">-->
+                        <!--<div class="form-group-cell">-->
+                           <!--<select class="dash_board_table" id="edit_resume_company" name="company_dropdown" style="float:right;">-->
+                                    <!--<option selected> ............. </option>-->
+
+                               <!--</select></div>-->
+                       <!--</div>             </div> <br>-->
+                     <!--<div class="row">-->
+
+                                                            <!--<div class="col-sm-12 col-md-12">-->
+
+                                                                <!--<label class="title_header l1">Job Title :</label> </div>-->
+                         <!--<div class=" col-sm-12 col-md-12">-->
+
+                            <!--<div class="form-group-cell" >-->
+                                <!--<select class="sort_by_job" id="edit_resume_job" name="job_dropdown" style="float:right;">-->
+                                    <!--<option selected> ............. </option>-->
+
+                               <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div> <br>-->
+                                      <!--<div class="row ">-->
+
+                                                            <!--<div class="col-sm-12 col-md-12">-->
+
+                                    <!--<button  class="btn btn_tertiary  attach_profiles_resume" title="Attach Profiles"  style="float:left">+ Attach  </button>-->
+                                                            <!--</div>-->
+                                      <!--</div> <br><br><br><br><br><br><br><br><br>-->
+
+
+                                                        <!--<div class="row">-->
+
+                                <!--<div class="form-group col-sm-10">-->
+                                                <!--<label class="lab2 l2">-->
+                                        <!--<font>Note</font>-->
+                                    <!--</label>-->
+                                           <!--<textarea type="text" style="height:250px;width:100%" id="resume_notes" name="recore_notes"></textarea>-->
+
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+
+
+
+
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal  " id="operatordetailsmodel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-lightgray l1" style="padding:20px">Profile Details
+          <button type="button"style="width:30px;height:30px" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'updateoperator' %}" method="post">
+                    {% csrf_token %}
+                    <div class="edit-operator">
+                        <div class="card-body">
+                            <input type="hidden" placeholder="Email*" name="User_id" value="" required>
+                            <input type="hidden" placeholder="Email*" name="Company_id" value="" required>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Company Name</font>
+                                    </label>
+                                    <input class="c1" type="text" name="company_name"
+                                           value="{{request.user.company.company_name}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>First Name</font>
+                                    </label>
+                                    <input class="c1" type="text" name="first_name" value="{{request.user.first_name}}"
+                                           readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Last Name</font>
+                                    </label>
+                                    <input class="c1" type="text" name="last_name" value="{{request.user.last_name}}"
+                                           readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Email Id</font>
+                                    </label>
+                                    <input class="c1" type="email" name="email" value="{{request.user.email}}"
+                                           title="Ex:johndoe12@gmail.com" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <label class="lab2 l2">
+                                        <font>Telephone</font>
+                                    </label>
+                                    <input class="c1" type="text" name="phone_number"
+                                           value="{{request.user.phone_number}}" placeholder="Ex:(9876543210)"
+                                           pattern="[0-9]{7,12}" title="Ex: 9876543210" required readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade in" id="checkemail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p> This email already exists.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal in" id="viewResume" role="dialog">
+    <div class="modal-dialog modal-width">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                         <ul class="nav nav-pills ">
+
+
+    <li class="l1 modal_tabs active" style="margin-left: 18px"><a data-toggle="tab" href="#panel10">Notes</a></li>
+
+
+                      </ul>
+                        <input type="hidden" id="pro_id_jpa">
+                        <textarea type="text" id="resume_id_notes_jpa" style="height:250px;width:100%;margin-top:22px;margin-left: 18px;"  name="recore_notes"></textarea> <br><br>
+                                    <button type="submit" class="btn btn_save  float-right save_notes_jpa">SAVE</button>
+
+
+                    </div>
+
+
+                                    <div class="col-sm-8">
+                    <object id="viewResume_pdf" data="" type="application/pdf" width="100%" height="800px"
+                            internalinstanceid="1409">
+                        <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                    </object>
+                    <iframe id="viewResume_doc" src="" style="width:100%; height:800px" class="hide">
+                    </iframe>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal in" id="viewSearchedResume" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-lightgray l1 " style="padding:20px"> Profile
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 ">
+                    <object id="viewSearchedResume_pdf" data="" type="application/pdf" width="200%" height="800px"
+                            internalinstanceid="1409">
+                        <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                    </object>
+                    <iframe id="viewSearchedResume_doc" src="" style="width:200%; height:800px" class="hide">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal " id="deleteModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <font class="h2">Are you sure? It will permanently deleted !</font>
+                <p id="demo"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn_cancel ">Cancel</button>
+                <button type="button" onclick=" delete_cust(id,c_id)" class="btn btn_save ">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="resume_open" role="dialog">
+    <div class="modal-dialog modal-width">
+        <div class="modal-content">
+            <object id="resume_pdff" data="" type="application/pdf" width="100%" height="800px">
+            </object>
+            <iframe id="resume_docc" src="" style="width:100%; height:800px">
+            </iframe>
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="messageModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="message_content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chat</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <input type="hidden" id="job_id" value="">
+            <input type="hidden" id="jpa_id" value="">
+            <input type="hidden" id="company_id" value="">
+
+
+            <div class="modal-body">
+                <div class="input-group">
+                    <textarea name="" class="form-control type_msg" id="text_msg_value"
+                              placeholder="Type your message..."></textarea>
+                    <div class="input-group-append send_btn">
+                        <span class="input-group-text " id="send_button"><i class="fa fa-location-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-12 chat p-1">
+                    <div class="cardsd">
+                        <div class="cardsd-body msg_card_body">
+                            <div class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="msg_cotainer">
+                                    <span class="msg_time">8:40 AM, Today</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="cardsd-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="modal create_job" id="create_job" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+            <div class="modal-content" class="cj"  style="width:800px;padding:15px">
+               <div class="modal-header">
+                  <h5 class="modal-title" style="font-size:20px;">Create Job</h5>
+                  <button type="button" class="close" data-dismiss="modal" >&times;</button>
+               </div>
+                    <div class="modal-body" id="body">
+                  <form id="createjob">
+                     <div class="form-row">
+                        <div class="form-group col-md-8">
+                           <label class="lab2 l2">
+                              <large> Job Title</large>
+                           </label>
+                            <input type="hidden" value="" name="jobid" id="jobid">
+                           <input type="hidden" value="" name="companyid_job" id="companyid_job">
+                           <input type="hidden" value="" name="companyname" id="companyname">
+                           <input type="text" class="c1"  placeholder="Title"name="jobtitle" id="title" required>
+                        </div>
+                             <div class=" col-md-4">
+                            <label class="lab2 l2">
+                                <font>Job End Date</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:09-08-1995" name="job_end_date" id="job_end_date">
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large>Required Skills</large>
+                              <font size="1" color="#9da1a4">  (Enter single or multiple skills )</font>
+                           </label>
+                           <!--<input type="text" class="c1"  placeholder="Primary Skills" name="primaryskills" required>-->
+                            <!--<select id="selectNumber" class="chosen-select" multiple>-->
+                            <!--<option>Choose Skills</option>-->
+                              <input type="text" class="tags_input" style="height: 10%;" placeholder="Skills" name="primaryskills" id="prim_skills" required>
+
+                       </div>
+                        </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large> Job Descriptions</large>
+                              <font size="1" color="#9da1a4">(Type/Paste here*)</font>
+                           </label>
+                           <textarea   id="jd" class="c1"  placeholder="Job Description" name="jobdescription" ></textarea>
+                        </div>
+                     </div>
+
+
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Experience</large>
+                              <font size="1" color="#9da1a4">(Years)</font>
+                           </label>
+                           <input type="number" class="c1"  placeholder="2"  name="experience" min="0" max="99"  step="any" title="Two or Less Numbers Only" id="expe"required >
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Number of Positions</large>
+                           </label>
+                           <input type="text" id="no_of_pos"   class="c1" placeholder="10" name="positions"  pattern="[0-9]{0,3}" title="Three or Less Numbers Only" required>
+                        </div>
+                          <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Notice Period</large>
+                              <font size="1" color="#9da1a4">(days)</font>
+                           </label>
+                           <input type="text" id="leadtime"  class="c1"  placeholder="30" name="leadtime"  pattern="[0-9]{0,2}" title="Two or Less Numbers Only" required>
+                     </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Candidates needed For</large>
+                           </label>
+                           <input type="text" id="createdfor"  class="c1"  placeholder="Enter Self or Other Company Name"  name="createdfor" required >
+                        </div>
+                          <div class="form-group col-md-4">
+                            <label class="lab2 l2">
+                                <font>Location</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:Bangalore" name="location" id="loc" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Reference Id</large>
+                              <font size="1" color="#9da1a4"></font>
+                           </label>
+                           <input  class="c1" type="text"  id="reference_id" placeholder="Reference ID"  name="reference_id"  pattern="[A-Za-z0-9]{3,10}">
+                        </div>
+                     </div>
+                      <div class="form-row">
+
+                           <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <font size="3">Job Type  :</font>
+                           </label> <br>
+
+
+                               <label name="job_type"> <font size="3">Full Time</font>  <input class="radio-input" type="radio" name="job_type" value="full_time" checked></label>
+                             <label name="job_type"> <font size="3">Contract </font>  <input class="radio-input" type="radio" name="job_type" value="contract"></label>
+                          <label name="job_type"> <font size="3"> Contract to Hire</font>  <input  class="radio-input"type="radio" name="job_type" value="contract_hire"></label>
+                        </div>
+
+                     </div>
+                     <div class="form-row" style="float:right" >
+                        <button type="button" id="cancel" data-dismiss="modal" class="btn btn_cancel"  >CANCEL</button>
+                        <button type="submit" id="save" class="btn btn_save create_job_oper" >SAVE</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+    </div>
+</div>
+
+
+<!--<div class="modal fade" class="hide" id="extracteddetails" role="dialog">-->
+    <!--<div class="modal-dialog">-->
+
+      <!--<div class="modal-content">-->
+        <!--<div class="modal-header">-->
+          <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+          <!--<h4 class="modal-title">Count and list of unextracted profiles</h4>-->
+        <!--</div>-->
+        <!--<div class="modal-body">-->
+            <!--<>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    <!--</div>-->
+  <!--</div>-->
+
+  <div class="modal fade" class="" id="extracteddetails" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Count and list of unextracted profiles</h4>
+        </div>
+        <div class="modal-body">
+         <ol>
+
+          </ol>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script src="../static/js/customerlist.js"></script>
+<script>
+
+
+
+
+  $('input').on('input', function() {
+    this.value = this.value
+
+      .replace(/(\.[\d]{2})./g, '$1');    // not more than 4 digits after decimal
+  });
+
+
+
+
+<!--advance search-->
+         <!--function searchattachprofiles(j_id){-->
+         <!--var search_val=document.getElementById("searchattach").value;-->
+         <!--$.ajax({-->
+             <!--data : { "profiles" :search_val,"jobid" :j_id },-->
+             <!--url: '{% url 'profiledetails' %}',-->
+             <!--method : 'get',-->
+             <!--contentType: false,-->
+             <!--dataType: 'json',-->
+                 <!--success: function (data) {-->
+                 <!--console.log("data is" , data)-->
+
+                 <!--$('#profile_table_row').empty()-->
+
+                 <!--$('#profile_table_row').show()-->
+                 <!--$.each(data, function(key, value) {-->
+
+                             <!--$('#profile_table_row').append("<tr id="+ value['id']+   "> <td scope='col'>" + value['name']+ " <br> " + value['email']+ " <br> "  + value['phone']+ "</td><td scope='col'>"  + value['skills'] + "</td><td scope='col'>"  + value['comp']+"</td><td scope='col'>"  + value['exp']+"</td><td scope='col'>"  + value['ctc']+"</td><td scope='col'>"  + value['expctc']+"</td><td scope='col'>"  + value['notice']+"</td><td class='get_chat' scope='col'><button>chat</button></td> <td scope='col' class='resume_open' id='"+ value['resume'] +"'><i class='fa fa-file fa-2x icon_large editbtn_d'></i></td><td scope='col'>"  + value['status']+"</td> </tr>")-->
+                             <!--})-->
+
+                   <!--}-->
+
+                <!--});-->
+                                                     <!--}-->
+
+
+
+<!--excel export-->
+         function customert_list_to_excel(){
+         <!--document.location.href = "{% url 'customerlisttoexcel'%}" ;-->
+          $.ajax({
+     url :"/customerlisttoexcel/",
+     method : 'get',
+     success:function(data){
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+});
+         }
+
+
+function dashboard_to_excel(){
+         <!--document.location.href = "{% url 'customerlisttoexcel'%}" ;-->
+          $.ajax({
+     url :"/dashboardtoexcel/",
+     method : 'get',
+     success:function(data){
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+});
+         }
+
+
+         function profile_list_to_excel(){
+
+         $.ajax({
+     url :"/profilelisttoexcel/",
+     method : 'get',
+     success:function(data){
+
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+
+});
+         }
+
+
+function user_list_to_excel(){
+
+         $.ajax({
+     url :"/userlisttoexcel/",
+     method : 'get',
+     success:function(data){
+
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+
+});
+         }
+
+
+
+
+
+
+
+
+function modalEmail(excelsheet){
+$('#sendmailModal').modal('show')
+  document.getElementById("excelSheet").value = excelsheet;
+
+to_excel_email()
+function to_excel_email(){
+
+
+data = {'excelsheet' : excelsheet }
+$.ajax({
+   data : data,
+   url :"/attachexcel_tomail/",
+   method : 'get',
+   success:function(data){
+     $('#excel_attach').removeClass('hide')
+      $('#excel_attach').addClass('show')
+      $('input[name="attacing_name"]').val("aaaaaaaaaas")
+
+ }
+
+
+
+});
+}
+
+         }
+
+
+
+
+ function validate_email() {
+          $("#form_validate").validate({
+
+              rules: {
+
+                  "email": {
+                      required: true,
+                  },
+
+                   "subject": {
+                      required: true,
+
+                  }
+              },
+              messages: {
+                  "subject": {
+                      required: "This field is required"
+                  },
+                  "email": {
+                      required: "This field is required",
+                      email: "Email is invalid"
+                  }
+              },
+
+              submitHandler: function (form) { // for demo
+                  Attach_excel()
+              }
+
+
+              });
+
+      }
+
+
+
+
+
+
+
+
+function Attach_excel(){
+  var mail_id=document.getElementById("Mail_ids").value;
+  var subjects=document.getElementById("subjects").value;
+  var details=document.getElementById("details").value;
+  var excelsheet=document.getElementById("excelSheet").value;
+company_id = $("#dash_board_table option:selected").val();
+job_id      = $("#dash_board_job  option:selected").val();
+s_id = $("#job_status option:selected").val();
+
+
+      data = {"mail_id" : mail_id , "subjects" : subjects, "details" : details, "excelsheet" : excelsheet ,"company_id" : company_id , "job_id" : job_id, "status_id" : s_id}
+
+   $.ajax({
+     data : data,
+     url : "/attach_excel/",
+     method : 'get',
+     success : function(data){
+      $('#sendmailModal').modal('hide')
+
+ toastr.success(data.msg)
+
+
+     }
+
+
+   });
+}
+
+$(document).on('click', '.dashboard_to_excel', function(e){
+company_id = $("#dash_board_table option:selected").val();
+job_id      = $("#dash_board_job  option:selected").val();
+s_id = $("#job_status option:selected").val();
+data = {"company_id" : company_id , "job_id" : job_id, "status_id" : s_id}
+
+     $.ajax({
+     data : data,
+     url :"/jpalisttoexcel/",
+     method : 'get',
+     success:function(data){
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+
+});
+
+
+});
+
+
+<!--
+//jquery validation for edit candidate profile
+-->
+
+
+</script>
+
+
+</body>
+</html>

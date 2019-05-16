@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../static/css/forsta.css">
+<script src="../../../static/js/login.js"></script>
+
+
+<body id="login-body" >
+        <div id="title"><font >forsta</font></div>
+    </div>
+  <div id="login_form">
+      <header class="login_header"><font size="5" color="lightgray">Login</font><br> <span><font size="2" color="lightgray">sign into smart solution for staffing agent</font></span></header>
+
+      <form action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+          <input type="email" class="login_input" placeholder="Email" name="username" value=""  id="usr"   required  ><br><br>
+          <div id="password_show">
+                         <input type="password" class="login_input" placeholder= "Password" name="password" id="myinput"  required>
+                        <span  class="fa fa-fw fa-eye field-icon toggle-password" id = "eye"></span>
+          </div><br>
+
+          <br>
+
+
+          <button type="submit" class="login_btn">LOGIN</button>
+
+      </form>
+       <div class="col-sm-2 p-0 btn_allign">
+                        <button class="btn btn-primary " data-toggle="modal"   title="Add Operator"   data-target="#resetModal">Reset password</button>
+                     </div>
+      </div>
+         <div class="modal " id="resetModal" role="dialog">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header bg-primary" style="padding:20px">Reset password
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="card1">
+
+                     <div class="card-body">
+                        <div class="form-row">
+                           <div class="form-group col-sm-12">
+                              <label class="lab2">
+                                 <Large>Email*</Large>
+                              </label>
+                              <input type="text"  name="email" id="c_name"  >
+                           </div>
+                        </div>
+
+                        <p id="dis">*indicates a required field</p>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn_cancel" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn_save" onclick="confirm()" >Send</button>
+                     </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <p id="p1"></p>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load i18n staticfiles %}
+
+<html lang="en">
+   <head>
+      <title>Customer</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="../static/css/forsta.css">
+                    <link rel="stylesheet" href="../static/css/tagcomplete.css">
+             <link rel="stylesheet" href="../static/css/tagcomplete.min.css">
+       <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/redmond/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+<script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+      <script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+       <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.percentageloader/0.1.0/jquery.percentageloader.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+           <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
+
+       <script src="../static/js/jobs.js"></script>
+              <script src="../static/js/tagcomplete.js"></script>
+              <script src="../static/js/tagcomplete.min.js"></script>
+
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <!---->
+
+   <link rel="icon" href="../static/css/icon5.png" type="image/gif" sizes="16x16">
+       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+
+
+         <script>
+
+        // translations for datatables
+
+        var dt_language = {
+            "emptyTable":     "{% trans "No data available in table" %}",
+            "info":           "{% trans "Showing _START_ to _END_ of _TOTAL_ entries" %}",
+            "infoEmpty":      "{% trans "Showing 0 to 0 of 0 entries" %}",
+            "infoFiltered":   "{% trans "(filtered from _MAX_ total entries)" %}",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "{% trans "Show _MENU_ entries" %}",
+            "loadingRecords": "{% trans "Loading..." %}",
+            "processing":     "{% trans "Processing..." %}",
+            "search":         "{% trans "Search:" %}",
+            "zeroRecords":    "{% trans "No matching records found" %}",
+            "paginate": {
+                "first":      "{% trans "First" %}",
+                "last":       "{% trans "Last" %}",
+                "next":       "{% trans "Next" %}",
+                "previous":   "{% trans "Previous" %}"
+            },
+            "aria": {
+                "sortAscending":  "{% trans ": activate to sort column ascending" %}",
+                "sortDescending": "{% trans ": activate to sort column descending" %}"
+            }
+        }
+
+
+      </script>
+
+
+
+
+
+
+   </head>
+   <body id="main">
+
+      <nav class="navbar header-top  navbar-expand-lg  navbar-dark bg-dark">
+         <a class="navbar-brand" href="#">forsta</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+            aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+     <span class="color_white margin_alt   nav_font getdashboardDetailsCustomer active" data-toggle="tab" id="dashboard_tab"
+          href="#dashboard"> Dashboard</span>
+         <!--<span class="color_white margin_alt  nav_font" data-toggle="tab" id="customer_tab" href="#customer">Jobs </span>-->
+         <div class="collapse navbar-collapse" id="navbarText">
+
+            <ul class="navbar-nav ml-md-auto d-md-flex">
+
+               <li class="nav-item">
+                  <span class="nav-link" href="#" data-toggle="dropdown">Welcome {{ request.user.first_name }}</span>
+
+<font color="white"  class="company_name_header nav-link" data-toggle="dropdown">{{ request.user.company.company_name}}</font>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
+ <li class="font_size_16" role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#operatordetailsmodel">Profile</a></li>                     <li role="presentation" class="divider"></li>
+                     <li class="font_size_16" role="presentation "><a role="menuitem" tabindex="-1" href="/logout/">Logout</a></li>
+                  </ul>
+               </li>
+               <!--<a class="nav-link" href=/logout/>Logout</a>-->
+            </ul>
+         </div>
+      </nav>
+      <!--<div class="modal" id="change_password" role="dialog">-->
+      <!--<div class="modal-dialog">-->
+      <!--<div class="modal-content" id="res">-->
+      <!--<div class="card1" >-->
+      <!--<div class="card-body">-->
+      <!--<input type="password" placeholder="Current Password" name="first_name" required>-->
+      <!--<input type="password" placeholder="New Password" name="last_name" required>-->
+      <!--<input type="password" placeholder="Confirm Password" name="email" required>-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+      <!--<button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>-->
+      <!--<button type="submit" class="btn btn-default" onclick="">RESET PASSWORD</button>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <div class="grid-container card " style="margin-left : 1%; margin-right : 1%;">
+          <div class="tab-content ">
+        <div class="tab-content ">
+
+
+            <div id="dashboard" class="tab-pane fade in active">
+
+
+
+
+
+                                <!--<div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">-->
+
+                     <!--<i title="Download Dashboard_details" class="fa fa-download icon_small" class="cursor_pointer" style="float:right" id="import_excel_dashboard"-->
+                       <!--onclick="dashboard_to_excel()"></i>-->
+                     <!--<i class="fa fa-envelope icon_small" class="cursor_pointer" style="margin-right:20px; float:right" title="Send Mail"-->
+                       <!--data-toggle="modal" onclick="modalEmail('dashboardlist_vendor')" value="send mail"></i>-->
+                <!--&lt;!&ndash;<p class="oper_dashboard l1"> Dashboard </p>&ndash;&gt;-->
+                                <!--</div>-->
+                     <div class="row ">
+
+                                                            <div class=" col-sm-4 col-md-2 col-xs-4 col-lg-1">
+
+                                                                <label class="title_header l1">Job Title :</label> </div>
+                         <div class=" col-sm-4 col-md-6 col-xs-4 col-lg-3">
+
+                            <div class="form-group-cell" >
+                                <select class="sort_by_job" id="dash_board_job" name="job_dropdown" style="width :200px;">
+                                    <option selected> ............. </option>
+
+                               </select>
+                            </div>
+<button id="company_dropdown" title="Create job" class="btn btn_tertiary  " data-toggle="modal" data-target="#create_job" style="margin-left:12px" >+ Add Job
+                                    </button>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                <div class="table-responsive show" id="dashboard_details">
+                                    <div class="col-sm-2 p-0 btn_allign">
+
+                                            <p class="l1"> Dashboard </p>
+
+
+
+
+                    </div>
+
+
+
+                <table width="100%"  class="table" id="dashboard_data_customer">
+                    <thead class="l3 " id="dashboarddata">
+                    <tr>
+                        <th class="dbjob_detail">Job Details </th>
+                        <th> Job Title   </th>
+                        <th># Positions   </th>
+                        <th class="dbaction">Action</th>
+
+                        <th  class="dbjob_detail">Candidate Details </th>
+                        <th  width="0"> Candidate Email</th>
+
+                        <th  width="0">Phone Number</th>
+                        <th  width="0"> Company id </th>
+                        <th class="dbrole" > Role</th>
+                        <th class="dbjob_detail"> Skills</th>
+                        <th class="dbcurecntcom"> Current Company</th>
+                        <th class="dbaction"> Exp</th>
+                        <th class="dbfive">CTC</th>
+                        <th class="dbfive">E-CTC</th>
+                        <th class="dbaction">NP(days)</th>
+                        <th class="dbaction">Resume</th>
+                        <th class="dbstatus">Status</th>
+                        <th> job id </th>
+                        <th> id </th>
+                        <th>comapany_name</th>
+                        <th class="dbaction">Chat</th>
+                        <th>customer_checked</th>
+
+
+
+                        <!--<th>Delete </th>-->
+
+
+  </tr>
+                    <tbody class="c2" id="dashboard_table" class="content">
+                </table>
+                </div>
+            </div>
+              <div id="customer" class="tab-pane fade-in">
+         <div  class="row" style="margin-left:2px;">
+            <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+               <div class=" col-sm-12 col-md-12 col-xs-12 col-lg-12 pb-4">
+               </div>
+                <i class="fa fa-envelope icon_small" style="margin-right:20px; " title="Send Mail"
+                       data-toggle="modal" onclick="modalEmail('customerjoblist')" value="send mail"></i>
+                    <i title="Download Customer_job_List" class="fa fa-download icon_small" id="import_excel_customerjoblist" style="float:right"
+                       onclick="customerjoblist_to_excel(job_id)"></i>
+               <div class="card-body" id="jbs">
+
+
+
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+              <div class="modal" id="create_job" role="dialog">
+
+
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" id="cj">
+               <div class="modal-header">
+                  <h5 class="modal-title" style="font-size:20px;">Create Job</h5>
+                  <button type="button" class="close" data-dismiss="modal" >&times;</button>
+               </div>
+                    <div class="modal-body" id="body">
+                  <form action="{% url 'customerpage' %}" method="POST">
+                     {% csrf_token %}
+                     <div class="form-row">
+                        <div class="form-group col-md-8">
+                           <label class="lab2 l2">
+                              <large> Job Title</large>
+                           </label>
+                            <input type="hidden" value="" name="jobid" id="jobid">
+                           <input type="hidden" value="" name="companyid" id="companyid">
+                           <input type="hidden" value="{{c_name}}" name="companyname" id="companyname">
+                           <input type="text" class="c1"  placeholder="Title"name="jobtitle"  required>
+                        </div>
+                             <div class=" col-md-4">
+                            <label class="lab2 l2">
+                                <font>Job End Date</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:1995-08-9" name="job_end_date" id="job_end_date">
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large>Required Skills</large>
+                              <font size="1" color="#9da1a4">  (Enter single or multiple skills seperated by ",")</font>
+                           </label>
+
+                              <input type="text" class="tags_input" placeholder="Primary Skills" name="primaryskills" required>
+
+                       </div>
+                        </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large> Job Descriptions</large>
+                              <font size="1" color="#9da1a4">(Type/Paste here*)</font>
+                           </label>
+                           <textarea   id="jd" class="c1"  placeholder="Job Description" name="jobdescription" ></textarea>
+                        </div>
+                     </div>
+
+
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Experience</large>
+                              <font size="1" color="#9da1a4">(Years)</font>
+                           </label>
+                           <input type="number" class="c1"  placeholder="2"  name="experience"   min="0" max="99" step="any" title="Two or Less Numbers Only" required >
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Number of Positions</large>
+                           </label>
+                           <input type="text"   class="c1" placeholder="10" name="positions"  pattern="[0-9]{0,3}" title="Three or Less Numbers Only" required>
+                        </div>
+                          <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Notice Period</large>
+                              <font size="1" color="#9da1a4">(days)</font>
+                           </label>
+                           <input type="text"   class="c1"  placeholder="30" name="leadtime"  pattern="[0-9]{0,2}" title="Two or Less Numbers Only" required>
+                     </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Candidates needed For</large>
+                           </label>
+                           <input type="text"   class="c1"  placeholder="Enter Self or Other Company Name"  name="createdfor" required >
+                        </div>
+                          <div class="form-group col-md-4">
+                            <label class="lab2 l2">
+                                <font>Location</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:Bangalore" name="location" id="" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Reference Id</large>
+                              <font size="1" color="#9da1a4"></font>
+                           </label>
+                           <input  class="c1" type="text"  id="reference_id" placeholder="Reference ID"  name="reference_id"  pattern="[A-Za-z0-9]{3,10}">
+                        </div>
+                     </div>
+                      <div class="form-row">
+
+                           <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <font size="3">Job Type  :</font>
+                           </label> <br>
+
+<input class="radio-input" type="radio" name="job_type" value="full_time" checked>
+                               <label> <font size="3">Full Time</font>  </label>
+
+                               <input class="radio-input" type="radio" name="job_type" value="contract">
+                             <label> <font size="3">Contract </font>  </label>
+                               <input  class="radio-input"type="radio" name="job_type" value="contract_hire">
+                          <label> <font size="3"> Contract to Hire</font>  </label>
+                        </div>
+
+                     </div>
+
+
+                            <div class="form-row">
+                          <div class="form-group col-md-12">
+                               <label class="lab2 l2">
+                              <large>Email Job Details.</large><font size="1" color="#9da1a4">(Enter Email)</font>
+                           </label ><br>
+                              <input type="text" name="job_mail"  placeholder="Enter Email" id="job_mail"> <br>
+                              <font size="1" color="#9da1a4">To send job details to your vendors, please enter individual email ID separated by comma ","</font>
+
+                          </div>
+                      </div>
+
+
+
+                     <div class="form-row" style="float:right" >
+                        <button type="button" id="cancel" data-dismiss="modal" class="btn btn_cancel"  >CANCEL</button>
+                        <button type="submit" id="save" class="btn btn_save">SAVE</button>
+                     </div>
+                  </form>
+                    </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         </div>
+      </div>
+
+                        <div class="modal  " id="operatordetailsmodel" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+
+               <div class="modal-header bg-primary font_size_16" style="padding:20px">Profile Details
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                                    <form action="{% url 'updateoperator' %}"  method="post">
+                     {% csrf_token %}
+                     <div  class="edit-operator">
+                        <div class="card-body">
+                           <input type="hidden" placeholder="Email*"   name="User_id" value=""required>
+                           <input type="hidden" placeholder="Email*"   name="Company_id" value=""required>
+                           <div class="form-row">
+                              <div class="form-group col-sm-12">
+                                 <label class="lab2 l2">
+                                    <Large>Company Name*</Large>
+                                 </label>
+                                 <input type="text"  name="company_name"  value="{{request.user.company.company_name}}" required readonly>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                              <div class="form-group col-sm-12">
+                                 <label class="lab2 l2">
+                                    <Large>First Name*</Large>
+                                 </label>
+                                 <input type="text"  name="first_name" value="{{request.user.first_name}}" required>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                              <div class="form-group col-sm-12">
+                                 <label class="lab2 l2">
+                                    <Large>Last Name</Large>
+                                 </label>
+                                 <input type="text" name="last_name" value="{{request.user.last_name}}" required>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                              <div class="form-group col-sm-12">
+                                 <label class="lab2 l2">
+                                    <Large>Email Id*</Large>
+                                 </label>
+                                 <input type="email"  name="email"  value="{{request.user.email}}"  title="Ex:johndoe12@gmail.com" required>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-sm-12">
+                                 <label class="lab2 l2">
+                                    <Large>Telephone*</Large>
+                                 </label>
+                                 <input type="text"   name="phone_number" value="{{request.user.phone_number}}" placeholder="Ex:(9876543210)" pattern="[0-9]{7,12}" title="Ex: 9876543210" required>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </div>
+         </div>
+      </div>
+
+            <div class="modal" id="editJobModal" role="dialog">
+                <div class="modal-dialog">
+         <div class="modal-content" class="cj"  style="width:800px;padding:15px">
+            <div class="modal-header">
+                  <h5 class="modal-title" style="font-size:20px;">Edit Job</h5>
+                  <button type="button" class="close" data-dismiss="modal" >&times;</button>
+               </div>
+                    <div class="modal-body" id="bodyy">
+
+                     <div class="form-row">
+                        <div class="form-group col-md-8">
+                           <label class="lab2 l2">
+                              <large> Job Title</large>
+                           </label>
+                             <input type="hidden" value="" name="companyid">
+                            <input type="hidden" value="" id="edit_job_id">
+                            <input type="text" class="c1" placeholder="Title" name="job_title"
+                                           value="{{this.job_title}}" id="job_title" readonly>
+
+                        </div>
+                             <div class=" col-md-4">
+                            <label class="lab2 l2">
+                                <font>Job End Date</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:1995-08-9" name="job_end_date" id="date">
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large>Required Skills</large>
+                              <font size="1" color="#9da1a4">  (Enter single or multiple skills seperated by ",")</font>
+                           </label>
+                           <!--<input type="text" class="c1"  placeholder="Primary Skills" name="primaryskills" required>-->
+                            <!--<select id="selectNumber" class="chosen-select" multiple>-->
+                            <!--<option>Choose Skills</option>-->
+                              <input type="text"  placeholder="Primary Skills" name="primary_skills" id="p_skills" required>
+
+                       </div>
+                        </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                           <label class="lab2 l2">
+                              <large> Job Descriptions</large>
+                              <font size="1" color="#9da1a4">(Type/Paste here*)</font>
+                           </label>
+                           <textarea   id="jobdescription" class="c1"  placeholder="Job Description"  name="jobdescription" ></textarea>
+                        </div>
+                     </div>
+
+
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Experience</large>
+                              <font size="1" color="#9da1a4">(Years)</font>
+                           </label>
+                           <input type="number" class="c1" id="exp" placeholder="2"  name="experience"  min="0" max="99" step="any" title="Two or Less Numbers Only" required >
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Number of Positions</large>
+                           </label>
+                           <input type="text"   class="c1" placeholder="10" name="positions"  pattern="[0-9]{0,3}" title="Three or Less Numbers Only" id="no_positions"  required>
+                        </div>
+                          <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Notice Period</large>
+                              <font size="1" color="#9da1a4">(days)</font>
+                           </label>
+                           <input type="text"   class="c1"  placeholder="30" name="leadtime"  pattern="[0-9]{0,2}" title="Two or Less Numbers Only" id="lead_time" required>
+                     </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Candidates needed For</large>
+                           </label>
+                           <input type="text" id="created_for"  class="c1"  placeholder="Enter Self or Other Company Name"  name="createdfor" required >
+                        </div>
+                          <div class="form-group col-md-4">
+                            <label class="lab2 l2">
+                                <font>Location</font>
+                                <font size="1" color="#9da1a4"> </font>
+                            </label>
+                            <input class="c1" type="text" placeholder="Ex:Bangalore" name="location" id="location" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                           <label class="lab2 l2">
+                              <large>Reference Id</large>
+                              <font size="1" color="#9da1a4"></font>
+                           </label>
+                           <input  class="c1" type="text"  id="reference_id_update" placeholder="Reference ID"  name="reference_id"  pattern="[A-Za-z0-9]{3,10}">
+                        </div>
+                     </div>
+                      <div class="form-row">
+
+                           <div class="form-group col-md-6">
+                           <label class="lab2 l2">
+                              <font size="3">Job Type  :</font>
+                           </label> <br>
+
+                                <form name="Mainform" id="Mainform">
+                                        <input type="radio" id="full_time" name="rds" value="full_time" checked/>
+                                        <font size="2"> Full Time</font>
+                                        <input type="radio" id="contract" name="rds" value="contract"/>
+                                        <font size="2">Contract</font>
+                                        <input type="radio" id="contract_hire" name="rds" value="contract_hire"/>
+                                        <font size="2">C to H</font><br>
+                                    </form>
+                        </div>
+
+                                                                  <div class="form-group col-md-6">
+
+
+                                             <label class="lab2 l2">
+                              <font size="3">Job Status  :</font>
+                           </label>
+                                <form name="JobStatus" id="JobStatus">
+                                        <input type="radio" id="active_job" name="js" value="Active" checked />
+                                        <font size="2"> Active </font>
+                                        <input type="radio" id="hold_job" name="js" value="Hold" />
+                                        <font size="2"> Hold</font>
+                                        <input type="radio" id="close_job" name="js" value="Closed"/>
+                                        <font size="2">Close</font>
+                                         <input type="radio" id="cancel_job" name="js" value="Canceled"/>
+                                         <font size="2">Cancel</font>
+
+                                    </form>
+                                        </div>
+
+
+                     </div>
+                     <div class="form-row" style="float:right" >
+                        <button type="button" id="cancell" data-dismiss="modal" class="btn btn_cancel">CANCEL</button>
+                        <button type="submit" id="savee" class="btn btn_save edit_job">SAVE</button>
+                     </div>
+               </div>
+
+         </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+      </div>
+      </div>
+      <div class="modal in" id="viewResume" role="dialog">
+         <div class="modal-dialog" style="max-width: 80% !important;">
+            <div class="modal-content">
+
+               <div class="modal-body" style="width : 124%">
+                  <div class="col-sm-12 ">
+                     <object id="viewResume_pdf" data="" type="application/pdf" width="80%" height="800px" internalinstanceid="1409">
+                        <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                     </object>
+                     <iframe id="viewResume_doc" src="" style="width:80%; height:800px" class="hide">
+                     </iframe>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+
+     <!--<div class="modal" id="statusModal">-->
+    <!--<div class="modal-dialog">-->
+      <!--<div class="modal-content">-->
+
+        <!--&lt;!&ndash; Modal Header &ndash;&gt;-->
+        <!--<div class="modal-header">-->
+          <!--<h4 class="modal-title">Update status</h4>-->
+          <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Modal body &ndash;&gt;-->
+        <!--<div class="modal-body">-->
+            <!--<div class="col-sm-12 ">-->
+
+                     <!--<div class="form-row">-->
+                        <!--<div class="form-group col-md-8">-->
+                    <!--<input type="hidden" name="resume_id" id="this_resume_id" value="">-->
+                   <!--<select   name="selector" id="selected_value" class=""><option selected>.......... </option><option value="Screen Reject">Screen Reject <option value="Duplicate">Duplicate </option><option value="Shortlisted">Shortlisted </option><option value="Interviewed">Interviewed</option><option value="Offered">Offered</option><option value="Joined">Joined</option></select>-->
+                        <!--</div></div><br>-->
+                                         <!--<div class="form-row">-->
+
+                         <!--&lt;!&ndash;<div class="form-group col-md-12">&ndash;&gt;-->
+                              <!--&lt;!&ndash;<label class="lab2 l2">&ndash;&gt;-->
+                              <!--&lt;!&ndash;<large> Remarks</large>&ndash;&gt;-->
+                           <!--&lt;!&ndash;</label>&ndash;&gt;-->
+
+                             <!--&lt;!&ndash;<textarea class="c1" id="remarks" placeholder="enter remarks"> </textarea>&ndash;&gt;-->
+
+                         <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                        <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Modal footer &ndash;&gt;-->
+          <!--<div class="form-row">-->
+                        <!--<button type="button"  style="position:relative; left:345px;bottom : 8px" data-dismiss="modal" class="btn btn_cancel"  >CANCEL</button>-->
+                        <!--<button type="submit" style="position:relative; left:360px; bottom : 8px"  class="btn btn_save Selectstatus">SAVE</button>-->
+                     <!--</div>-->
+
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+
+
+
+            <div class="modal " id="sendmailModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-lightgray l1" style="padding:20px">Send Message
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card1">
+                                <form id="form_validate">
+                                    <input type="hidden" id="excelSheet" value="">
+                                    <label class="lab2 l2">
+                                        <br>
+                                        <font>To*</font>
+                                    </label>
+                                    <input type="email" name="tags" placeholder="Recipients" id="Mail_ids" required>
+                                    <br>
+                                    <label class="lab2 l2">
+                                        <br><br>
+                                        <font>Subject*</font>
+                                    </label>
+                                    <input id="subjects" type="text" required>
+                                    <br><br>
+                                    <label class="lab2 l2">
+                                        <font>Details*</font>
+                                    </label>
+
+                                    <textarea id="details"></textarea>
+
+                                    <br>
+                                    <h4 id="excel_attach" style="color:blue;top:27px" class="hide"> file attached </h4>
+                                    <button class="btn btn_save" style="float:right;" onclick="validate_email()"
+                                            id="bt1" value="send">Send
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                  <div class="modal " id="statusModal" role="dialog">
+                <div class="modal-dialog" id="modal_dailog">
+                    <div class="modal-content" id="modal_content">
+                        <div class="modal-header bg-lightgray l1" style="padding:15px ;text-align:center">Update Status
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row-form">
+                                <div class="col-sm-4">
+                                    <h4> Stage </h4>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4> Status </h4>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4> Remarks </h4>
+
+                                </div>
+
+
+                        </div>
+
+<div class='modalheaderLine col-sm-12'><center><div class='divdeblue'></div></center></div>
+
+                            <hr>
+                            <div id="addspace" style="height : 30px"></div>
+
+
+                            <div class="row-form">
+                                <div class="col-sm-4">
+                                    <h4 id="status_stage"> Profile Shared </h4>
+
+
+                                </div>
+                                <div class="col-sm-4">
+<select style="width: 175px;"  name="selector" id="selected_value" class=""><option selected>.......... </option><option value="Shortlist">Shortlist <option value="Duplicate">Duplicate </option><option value="Reject">Reject </option><option value="On Hold">On Hold</option></select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <textarea></textarea>
+
+                                </div>
+
+
+
+                            </div>
+
+                    </div>
+                          <div class="form-row" style="float:right" >
+                        <button type="button"  data-dismiss="modal" class="btn btn_cancel">CANCEL</button>
+                        <button type="submit"  class="btn btn_save edit_job">SAVE</button>
+                     </div>
+
+                </div>
+            </div>
+
+
+
+
+    <div class="modal fade" id="messageModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="message_content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chat</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <input type="hidden" id="job_id" value="">
+            <input type="hidden" id="jpa_id" value="">
+            <input type="hidden" id="company_id" value="">
+
+
+            <div class="modal-body">
+                <div class="input-group">
+                    <textarea name="" class="form-control type_msg" id="text_msg_value"
+                              placeholder="Type your message..."></textarea>
+                    <div class="input-group-append send_btn">
+                        <span class="input-group-text " id="send_button"><i class="fa fa-location-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-12 chat p-1">
+                    <div class="cardsd">
+                        <div class="cardsd-body msg_card_body">
+                            <div class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="msg_cotainer">
+                                    <span class="msg_time">8:40 AM, Today</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="cardsd-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+      </div>
+
+   </body>
+
+   <!--<script src="../static/js/customerlist.js"></script>-->
+
+
+   <script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--$('.chosen-select').chosen({}).change( function(obj, result) {-->
+    <!--console.debug("changed: %o", arguments);-->
+
+    <!--console.log("selected: " + result.selected);-->
+<!--});-->
+
+<!--$(".chosen-select").append('<option value="1">User</option>').trigger("chosen:updated");-->
+
+       <!--jQuery(document).ready(function($) {-->
+
+
+<!--var data1 = [];-->
+<!--$.ajax({-->
+  <!--url : "/getallskills/",-->
+  <!--method : "get",-->
+   <!--success : function(data){-->
+                   <!--console.log(data)-->
+
+                  <!--$.each(data.skills, function(key,value) {-->
+                      <!--console.log(value['skill'])-->
+
+                <!--data1.push(value['skill']);-->
+                <!--});-->
+    <!--&lt;!&ndash;for(var i = 0; i < options.length; i++) {&ndash;&gt;-->
+    <!--&lt;!&ndash;var opt = options[i];&ndash;&gt;-->
+    <!--&lt;!&ndash;var el = document.createElement("option");&ndash;&gt;-->
+    <!--&lt;!&ndash;el.textContent = opt;&ndash;&gt;-->
+    <!--&lt;!&ndash;el.value = opt;&ndash;&gt;-->
+    <!--&lt;!&ndash;select.appendChild(el);&ndash;&gt;-->
+<!--&lt;!&ndash;}&ndash;&gt;-->
+
+
+<!--$(".tags_input").tagComplete({-->
+      <!--freeInput : true,-->
+  <!--freeEdit : true,-->
+
+    <!--ignoreCase: true,-->
+
+  <!--autocomplete: {-->
+      <!--ignoreCase: true,-->
+
+    <!--data: data1-->
+  <!--},-->
+<!--// when a new tag is added-->
+  <!--onAdd: function(data){-->
+    <!--return true;-->
+  <!--},-->
+
+  <!--// when a tag is deleted-->
+  <!--onDelete: function(data){-->
+    <!--return true;-->
+  <!--}-->
+
+
+<!--});-->
+
+   <!--}-->
+
+
+<!--});-->
+
+
+
+
+<!--});-->
+<!--var select = document.getElementById("selectNumber");-->
+
+
+
+      jQuery(document).ready(function($) {
+
+
+             JoblistCall({{request.user.company.id}})
+
+             company_id = {{request.user.company.id}}
+
+
+
+
+      });
+
+
+      function JoblistCall(id) {
+
+          $('#companyid').val(id)
+          $.ajax({
+              datatype: 'JSON',
+              url: "/operator/joblist/"+id,
+              method: "get",
+              success: function(data) {
+               if(data.jobs.length > 0 ){
+
+                  $('#joblist_data').empty()
+                  $('#profile_table_row').empty()
+
+                  $.each(data.jobs, function(key, value) {
+                   if(key == 0){
+
+                      $('#joblist_data').append("<span class='main_card active c1' id="+value['id']+ " title='"+ value["job_description"]+"'><label class='title_card c1'>"  +value["job_title"] + "</label><div class='sub_card c1'><div class='row_one c3'> Skills : </div> <div class='row_two c3'> "+value["primary_skills"] + " </div>  </div><div class='sub_card c1'><div class='row_one c3'> Exp : </div> <div class='row_two c3'> " +value["experience"] + " </div>  </div><div class='sub_card c1'><div class='row_one c3'>created_for :  </div> <div class='row_two c3'>" +value["created_for"] +"</div></div>  <div class='sub_card c1'><div class='row_one c3'> lead_time : </div> <div class='row_two c3'> "+value["lead_time"] + "</div>  <hr> <i class='fa fa-trash-o fa-2x icon_large delete_job' title='Delete Job' ></i> <i class='fa fa-pencil fa-2x icon_med jobedit' title='Edit Job' data-toggle='modal'   data-target='#editJobModal'></i> </div></span> </hr><td></td>")
+
+                      job_id=value['id']
+                      data = {"job_id" : value['id']}
+                      ajaxDataTableCall(data)
+                   }else{
+
+                      $('#joblist_data').append("<span class='main_card c1' id="+value['id']+ " title='"+ value["job_description"]+"'><label class='title_card c1'>"  +value["job_title"] + "</label><div class='sub_card c1'><div class='row_one c3'> Skills : </div> <div class='row_two c3'> "+value["primary_skills"] + " </div>  </div><div class='sub_card c1'><div class='row_one c3'> Exp : </div> <div class='row_two c3'> " +value["experience"] + " </div>  </div><div class='sub_card c1'><div class='row_one c3'>created_for :  </div> <div class='row_two c3'>" +value["created_for"] +"</div></div>  <div class='sub_card c1'><div class='row_one c3'> lead_time : </div> <div class='row_two c3'> "+value["lead_time"] + "</div> <hr> <i class='fa fa-trash-o fa-2x icon_large delete_job' title='Delete Job'></i> <i class='fa fa-pencil fa-2x icon_med jobedit' data-toggle='modal' title='Edit Job  data-target='#editJobModal'></i> </div></span> </hr><td></td>")
+
+                   }
+
+                  })
+
+              }
+              else{
+                  $('#joblist_data').empty()
+                    data={"job_id" : 0}
+                    ajaxDataTableCall(data)
+
+
+              }
+
+
+              }
+          });
+
+      }
+
+      $(document).on('click', '.main_card', function(event) {
+
+          $(this).addClass("active");
+          $(this).siblings().removeClass("active");
+
+          var id = $(this).attr('id');
+          job_id = id
+
+          data= { "job_id" : id }
+          ajaxDataTableCall(data)
+      })
+
+      function getProfiles(id) {
+
+      $.ajax({
+
+              data: id,
+              datatype: 'JSON',
+              url: "/profiledetails/?jobid="+id,
+              method: "get",
+              success: function(data) {
+                      $('#profile_table_row').empty()
+                      $('#show_attached_profiless').removeClass('hide')
+                      $('#show_attached_profiless').addClass('show')
+                      $('#new_profiles').addClass('hide')
+                      $('#new_profiles').removeClass('show')
+
+
+                      if(data.profiledetails.length>0){
+                      $.each(data.profiledetails, function(key, value) {
+
+                          $('#profile_table_row').append ("<tr id="+ value['id']+   "> <td scope='col'>" + value['resume__candidate_name']+ " <br> " + value['resume__candidate_email']+ " <br> "  + value['resume__phone_number']+ "</td><td scope='col'>"  + value['resume__primary_skills'] + "</td><td scope='col'>"  + value['resume__current_company']+"</td><td scope='col'>"  + value['resume__experience']+"</td><td scope='col'>"  + value['resume__current_ctc']+"</td><td scope='col'>"  + value['resume__expected_ctc']+"</td><td scope='col'>"  + value['resume__notice_period']+"</td> <td scope='col' class='resume_open' id='" +  value['resume__resume_name'] +"'><i class='fa fa-file fa-2x icon_large editbtn_d'></i></td><td scope='col'> <select   name='selector'  class='Selectstatus'><option value=''>.......... </option><option value='Screen Reject'>Screen Reject </option><option value='Duplicate'>Duplicate </option><option value='Shortlisted'>Shortlisted </option><option value='Interviewed'>Interviewed</option><option value='Offered'>Offered</option><option value='Joined'>Joined</option></select></td><td class='get_chat' scope='col'><button> converse </button></td></tr>")
+
+                      })
+
+
+
+
+                     }else{
+
+
+                           $('#profile_table_row').append('<tr>  <td colspan="10" style="text-align:  center;">No Records Found</td></tr>')
+
+
+                       }
+
+
+                    }
+              })
+
+      }
+
+
+
+<!--selected option after logout-->
+
+
+
+
+
+
+
+
+
+
+
+      function job_det(l)
+      {
+      document.location.href ='{% url 'profiledetails' %}?jobid='+l ;
+
+      }
+
+          //sidenav openclose
+      function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+      }
+
+      function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+      }
+
+      // reset password
+        $(document).on('click', '#change', function(e) {
+       $("#change_password").modal('show')
+      })
+
+
+
+
+      // highlight row
+      $('#job_details tr').click(function(e) {
+          $('#job_details tr').removeClass('highlighted');
+          $(this).addClass('highlighted');
+      });
+
+
+
+
+
+
+
+
+      $(document).on('click', '.Selectstatus', function(event) {
+
+
+
+
+var resume_id = document.getElementById("this_resume_id").value;
+       console.log($(this).html())
+
+      <!--var status = $(this).find(":selected").text()-->
+      var status = document.getElementById("selected_value").value;
+      <!--var remarks = document.getElementById("remarks").value;-->
+      if(status==".........."){
+      $.alert("pleases select status")
+      }
+      else{
+      updatestatus(resume_id,job_id,status)
+      }
+
+      })
+
+
+
+
+
+
+
+
+        $(document).on('click', '.editbtn_d ', function(e) {
+      jpa_id = $(this).attr('value')
+
+      customer_checked_status(jpa_id)
+       $("#viewResume").modal('show')
+
+
+      var  file_name =$(this).attr('id')
+       var extention = file_name.slice((file_name.lastIndexOf(".") - 1 >>> 0) + 2)
+
+       if(extention == "pdf"){
+              var file_type ='../media/'+file_name
+              $('#viewResume_pdf').attr('data',file_type)
+
+              $('#viewResume_doc').addClass('hide')
+              $('#viewResume_pdf').removeClass('hide')
+
+         }else if(extention == "doc" ||extention == "docx" ){
+
+
+              var new_file =  "https://docs.google.com/gview?url="+location.protocol+"//"+window.location.host+"/media/"+file_name+"&embedded=true"
+              $('#viewResume_pdf').addClass('hide')
+              $('#viewResume_doc').removeClass('hide')
+              $('#viewResume_doc').attr('src',new_file)
+
+
+      }
+
+
+
+      })
+
+
+      <!--Press enter to send message-->
+
+var input = document.getElementById("text_msg_value");
+input.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    document.getElementById("send_button").click();
+  }
+});
+
+$(document).on('click', '.status_modal', function(e){
+
+$("#statusModal").modal('show')
+var resume_id = $(this).attr('id')
+$("input[name='resume_id']").val(resume_id);
+} )
+
+
+
+$(document).on('click', '.delete_job', function(event) {
+
+    job_id = ($(this).parents('.main_card').attr('id'))
+
+
+    delete_job(job_id)
+
+})
+
+
+function delete_job(j_id){
+$.ajax({
+
+
+                datatype: 'JSON',
+                url: "/checkingjob/?job_id=" + job_id,
+                method: "get",
+
+                success: function(data) {
+                if (data.msg == "This job cannot be deleted as it contains profiles") {
+                  toastr.success(data.msg)
+
+                                                    }
+else{
+
+
+                    $.confirm({
+    title: 'Delete  Job',
+    content: 'Are you sure you want to delete?',
+    buttons: {
+    cancel: function () {
+
+        },
+
+
+        delete: function () {
+
+         $.ajax({
+        url: "/deletejobs/?job_id=" + job_id,
+        method: 'get',
+        dataType: 'json',
+        success: function(data) {
+
+            toastr.success(data.msg);
+            JoblistCall(company_id)
+
+
+          }
+
+          });
+
+
+                }
+}
+
+});
+    }
+}
+          });
+}
+
+
+function customer_checked_status(id){
+
+
+data = {'jpa_id' : id, }
+$.ajax({
+   data : data,
+   url :"/customer_checked/",
+   method : 'get',
+   success:function(data){
+j_id = $("#dash_board_job option:selected").val();
+
+dashboardLoad(j_id)
+   }
+   });
+
+}
+
+
+
+
+function ajaxDataTableCall(data){
+                        $('#data_table_server').DataTable().clear().destroy();
+
+
+
+
+        var dt_table = $('#data_table_server').dataTable({
+        language: dt_language,  // global variable defined in html
+        order: [[ 0, "desc" ]],
+        lengthMenu: [[25, 50, 100, 200], [25, 50, 100, 200]],
+        columnDefs: [
+            {orderable: true,
+             searchable: true,
+             className: "center",
+            },
+
+
+        ],
+        searching: true,
+        processing: true,
+        serverSide: true,
+        stateSave: true,
+        data     : data,
+        ajax:{
+                url:'/ticket_data/',
+                data: data,
+            datatype: 'JSON',
+            method: "GET",
+
+            dataSrc:function(json) {
+
+                    return json.data;
+                },
+        }
+    });
+
+
+}
+
+<!--
+//edit job
+-->
+
+
+
+  // disable save
+      <!--jQuery("#save").prop('disabled', true);-->
+
+      <!--var toValidate = jQuery('#title, #ps, #lt, #for, #exp, #pos '),-->
+          <!--valid = false;-->
+      <!--toValidate.keyup(function () {-->
+          <!--if (jQuery(this).val().length > 0) {-->
+              <!--jQuery(this).data('valid', true);-->
+          <!--} else {-->
+              <!--jQuery(this).data('valid', false);-->
+          <!--}-->
+          <!--toValidate.each(function () {-->
+              <!--if (jQuery(this).data('valid') == true) {-->
+                  <!--valid = true;-->
+              <!--} else {-->
+                  <!--valid = false;-->
+              <!--}-->
+          <!--});-->
+          <!--if (valid === true) {-->
+              <!--jQuery("#save").prop('disabled', false);-->
+          <!--} else {-->
+              <!--jQuery("#save").prop('disabled', true);-->
+          <!--}-->
+      <!--});-->
+
+ <!--function job_send_mail(companyid)-->
+ <!--{-->
+  <!--var jobid=document.getElementById("companyid").value;-->
+  <!--var job_mail=document.getElementById("job_mail").value;-->
+ <!--alert(job_mail)-->
+ <!--alert(jobid)-->
+
+
+ <!--$.ajax({-->
+
+
+                <!--datatype: 'JSON',-->
+                <!--url: "/jobmail/?jobid=" + jobid + "&job_mail=" + job_mail,-->
+                <!--method: "get",-->
+
+                <!--success: function(data) {-->
+
+
+ <!--}-->
+ <!--});-->
+ <!--}-->
+
+
+
+ $( function() {
+    $( "#job_end_date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat:"dd-mm-yy",
+       minDate: +1,
+       maxDate: 30
+
+    });
+  } );
+
+
+            $( function() {
+    $("#date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat:"dd-mm-yy",
+       minDate: +1,
+       maxDate: 30
+
+    });
+  } );
+
+
+
+function modalEmail(excelsheet){
+$('#sendmailModal').modal('show')
+  jobid = $("#joblist_data .main_card.active").attr('id')
+  document.getElementById("excelSheet").value = excelsheet;
+
+to_excel_email()
+function to_excel_email(){
+
+data = {'excelsheet' : excelsheet,"jobid":jobid }
+$.ajax({
+   data : data,
+   url :"/attachexcel_tomail/",
+   method : 'get',
+   success:function(data){
+     $('#excel_attach').removeClass('hide')
+      $('#excel_attach').addClass('show')
+      $('input[name="attacing_name"]').val("aaaaaaaaaas")
+
+ }
+
+
+
+});
+}
+
+         }
+
+
+
+
+ function validate_email() {
+          $("#form_validate").validate({
+
+              rules: {
+
+                  "email": {
+                      required: true,
+                  },
+
+                   "subject": {
+                      required: true,
+
+                  }
+              },
+              messages: {
+                  "subject": {
+                      required: "This field is required"
+                  },
+                  "email": {
+                      required: "This field is required",
+                      email: "Email is invalid"
+                  }
+              },
+
+              submitHandler: function (form) { // for demo
+                  Attach_excel()
+              }
+
+
+              });
+
+      }
+
+
+
+
+
+
+
+function Attach_excel(){
+  var mail_id=document.getElementById("Mail_ids").value;
+  var subjects=document.getElementById("subjects").value;
+  var details=document.getElementById("details").value;
+  var excelsheet=document.getElementById("excelSheet").value;
+
+      data = {"mail_id" : mail_id , "subjects" : subjects, "details" : details, "excelsheet" : excelsheet }
+
+   $.ajax({
+     data : data,
+     url : "/attach_excel/",
+     method : 'get',
+     success : function(data){
+
+      swal(data.msg)
+
+
+     }
+
+
+   });
+}
+
+
+
+function dashboard_to_excel(){
+         <!--document.location.href = "{% url 'customerlisttoexcel'%}" ;-->
+          $.ajax({
+     url :"/dashboardtoexcel/",
+     method : 'get',
+     success:function(data){
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+});
+         }
+
+
+function customerjoblist_to_excel(j_id){
+         <!--document.location.href = "{% url 'customerlisttoexcel'%}" ;-->
+          $.ajax({
+     url :"/customerjoblisttoexcel/?jobid="+j_id,
+     method : 'get',
+     success:function(data){
+     linkHref="../media/"+data.fname
+     window.open(linkHref, "_blank");
+  }
+
+
+});
+         }
+
+
+   </script>
+
+</html>
