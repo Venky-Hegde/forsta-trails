@@ -16,7 +16,7 @@ cymem==2.0.2
 cytoolz==0.9.0.1
 defusedxml==0.5.0
 dill==0.2.8.2
-Django==1.11
+Django==1.11.29
 django-datatables-view==1.17.0
 django-uuidfield==0.5.0
 docx==0.2.4
