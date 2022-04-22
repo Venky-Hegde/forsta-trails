@@ -53,7 +53,7 @@ pyfcm==1.4.5
 PyJWT==1.6.4
 pyOpenSSL==18.0.0
 pyparsing==2.3.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 Pyphen==0.9.5
 python-dateutil==2.7.5
 python-decouple==3.1
