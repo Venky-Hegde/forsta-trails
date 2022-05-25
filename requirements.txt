@@ -50,7 +50,7 @@ psycopg2-binary==2.7.5
 pycparser==2.19
 pycryptodome==3.6.6
 pyfcm==1.4.5
-PyJWT==1.6.4
+PyJWT==2.4.0
 pyOpenSSL==18.0.0
 pyparsing==2.3.0
 PyPDF2==1.26.0
